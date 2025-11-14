@@ -22,7 +22,21 @@ public class Student extends User {
 //If the student wants to do actions (like enroll in a course), they need the service.
 
 
-    
+    public List<Courses.Course> browseCourses() {
+        return studentService.browseCourses();
+    }
+    public boolean enrollCourse(String courseId) {
+        return studentService.enrollStudentInCourse(this, courseId);
+    }
+    public List<Courses.Course> viewEnrolledCourses() {
+        return studentService.getEnrolledCourses(this);
+    }
+    public List<Courses.Lesson> viewLessons(String courseId) {
+        return studentService.getLessonsForCourse(courseId);
+    }
+    public boolean markLessonCompleted(String courseId, String lessonId) {
+        return studentService.markLessonCompleted(this, courseId, lessonId);
+    }
 
     
     public List<String> getEnrolledCourses() {
