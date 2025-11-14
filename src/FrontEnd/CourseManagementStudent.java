@@ -130,8 +130,6 @@ public class CourseManagementStudent extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        CourseManagementInstractor c = new CourseManagementInstractor();
-        c.setVisible(true);
         java.awt.EventQueue.invokeLater(() -> new CourseManagementStudent().setVisible(true));
     }
 
