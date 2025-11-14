@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class JsonDatabaseManager <T>{
+public class JsonDatabaseManager <T>{
     protected ArrayList<T> db;
     protected Path file;
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -46,5 +46,5 @@ public abstract class JsonDatabaseManager <T>{
         }
     }
 
-    public abstract void searchBYName(String name);
+
 }
