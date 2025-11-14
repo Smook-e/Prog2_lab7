@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class SignInApp {
@@ -16,7 +18,7 @@ public class SignInApp {
             users = new UserService("src\\JSON\\users.json");
         } catch (IOException e) {
             System.out.println("Error loading users!");
-            e.printStackTrace();
+
         }
     }
 
@@ -137,6 +139,19 @@ public class SignInApp {
 
         dialog.add(panel);
         dialog.setVisible(true);
+    }
+    private static String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hash) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 not available", e);
+        }
     }
 
     // ===================== SIGN IN LOGIC =====================
