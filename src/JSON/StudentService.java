@@ -41,10 +41,9 @@ public class StudentService {
     public List<Lesson> getLessonsForCourse(String courseId) {
         Course c = courseService.getCourseByID(courseId);
         if (c == null) return new ArrayList<>();
-        return c.getLessons();  
+         return new ArrayList<>(Arrays.asList(c.getLessons())); // Convert array to List 
     }
     public boolean markLessonCompleted(Student student, String courseId, String lessonId) {
-
         student.getProgress().putIfAbsent(courseId, new ArrayList<>());
 
         if (!student.getProgress().get(courseId).contains(lessonId)) {
