@@ -128,9 +128,9 @@ public class SignInApp {
             Random rand = new Random();
             int randomNum = rand.nextInt(1000) +10000;
             String userID = Integer.toString(randomNum);
-
+            String hashedPassword = hashPassword(pass1);
             // === ADD NEW USER ===
-            users.addUser(new User(userID, pass1, username, role, email));
+            users.addUser(new User(userID, hashedPassword, username, role, email));
             users.save();
 
             JOptionPane.showMessageDialog(dialog, "Account created successfully!\nID: " + userID, "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -160,8 +160,8 @@ public class SignInApp {
             JOptionPane.showMessageDialog(frame, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        if (validateLogin(username, password)) {
+        String hashedPassword = hashPassword(password);
+        if (validateLogin(username, hashedPassword)) {
             JOptionPane.showMessageDialog(frame, "Welcome, " + username + "!", "Success", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();
             if(users.getUserByUsername(username).getRole().equalsIgnoreCase("Student")) {
