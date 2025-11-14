@@ -1,17 +1,23 @@
 [
   {
-    "name": "Alice",
-    "age": 28,
-    "email": "alice@example.com"
+    "userID": "1",
+    "password": "abc",
+    "userName":"alice123",
+    "email": "alice@example.com",
+    "role" : "student"
   },
   {
-    "name": "Bob",
-    "age": 35,
-    "email": "bob@example.com"
+    "userID": "2",
+    "password": "abc",
+    "userName":"john123",
+    "email": "john@example.com",
+    "role" : "student"
   },
   {
-    "name": "Charlie",
-    "age": 22,
-    "email": "charlie@example.com"
+    "userID": "3",
+    "password": "abc",
+    "userName":"steve123",
+    "email": "steve@example.com",
+    "role" : "Instructor"
   }
 ]
