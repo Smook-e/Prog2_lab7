@@ -1,7 +1,6 @@
 package JSON;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,14 +15,28 @@ public class JsonDatabaseManager <T>{
     protected Path file;
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     public JsonDatabaseManager() {};
-    public JsonDatabaseManager(String filePath) throws IOException {
+    public JsonDatabaseManager(String filePath, Class<T> clazz) throws IOException {
         file = Path.of(filePath);
-        db = load();
+        db = load(clazz);
     }
-    public ArrayList<T> load() throws IOException {
+    public ArrayList<T> load(Class<T> clazz) throws IOException {
 
-        String json = Files.readString(file); // make JSON string from JSON file
-        return gson.fromJson(json, new TypeToken<ArrayList<T>>(){}.getType()); // change string into arraylist
+        try {
+            if (!Files.exists(file)) return new ArrayList<>();
+
+            String json = Files.readString(file);
+            JsonArray arr = JsonParser.parseString(json).getAsJsonArray();
+
+            ArrayList<T> list = new ArrayList<>();
+            for (JsonElement el : arr) {
+                list.add(gson.fromJson(el,clazz));   // one object → no type-erasure
+            }
+            return list;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ArrayList<>();
+        } // change string into arraylist
     }
 
     public void  save() {

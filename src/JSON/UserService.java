@@ -9,7 +9,7 @@ import java.util.List;
 public class UserService extends JsonDatabaseManager<User> {
 
     public UserService(String fileName) throws IOException {
-        super(fileName);
+        super(fileName, User.class);
 
     }
 
@@ -68,5 +68,12 @@ public class UserService extends JsonDatabaseManager<User> {
     }
     public boolean containsID(String ID){
         return getUserByID(ID) != null;
+    }
+    public boolean addUser(User user){
+        if(containsID(user.getUserID())) {
+            return false;
+        }
+        db.add(user);
+        return true;
     }
 }
