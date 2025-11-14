@@ -15,21 +15,20 @@ public class StudentService {
         this.userService = userService;
         this.courseService = courseService;
     }
-
     public List<Course> browseCourses() {
-        return courseService.getDb();  
+        return courseService.getDb();   
     }
-     public boolean enrollStudentInCourse(Student student, String courseId) {
 
+    public boolean enrollStudentInCourse(Student student, String courseId) {
         if (student.getEnrolledCourses().contains(courseId)) {
-            return false; // already enrolled
+            return false;
         }
-
         student.getEnrolledCourses().add(courseId);
-        userService.save(); // update users.json
+        userService.save(); 
         return true;
     }
-     public List<Course> getEnrolledCourses(Student student) {
+
+    public List<Course> getEnrolledCourses(Student student) {
         List<Course> result = new ArrayList<>();
 
         for (String cid : student.getEnrolledCourses()) {
@@ -38,9 +37,22 @@ public class StudentService {
         }
         return result;
     }
-     public List<Lesson> getLessonsForCourse(String courseId) {
+
+    public List<Lesson> getLessonsForCourse(String courseId) {
         Course c = courseService.getCourseByID(courseId);
         if (c == null) return new ArrayList<>();
-        return c.getLessons();  // lessons come FROM course object
+        return c.getLessons();  
+    }
+    public boolean markLessonCompleted(Student student, String courseId, String lessonId) {
+
+        student.getProgress().putIfAbsent(courseId, new ArrayList<>());
+
+        if (!student.getProgress().get(courseId).contains(lessonId)) {
+            student.getProgress().get(courseId).add(lessonId);
+            userService.save();  
+            return true;
+        }
+
+        return false;
     }
 }
