@@ -1,8 +1,7 @@
 package FrontEnd;
 
 import JSON.UserService;
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
+import Users.User;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -10,14 +9,20 @@ import java.nio.file.*;
 import java.util.*;
 
 public class SignInApp {
-    UserService users;
+    static UserService users;
 
-    public SignInApp() throws IOException {
-        users = new UserService("src\\JSON\\users.json");
+    static {
+        try {
+            users = new UserService("src\\JSON\\users.json");
+        } catch (IOException e) {
+            System.out.println("Error loading users!");
+            e.printStackTrace();
+        }
     }
 
+    public SignInApp() throws IOException {}
+
     public static void main(String[] args) {
-        createSampleUsersIfNeeded();
         SwingUtilities.invokeLater(SignInApp::showSignInWindow);
     }
 
@@ -25,16 +30,17 @@ public class SignInApp {
     private static void showSignInWindow() {
         JFrame frame = new JFrame("Sign In");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(350, 220);
+        frame.setSize(500, 250);
         frame.setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
+        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 25));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JTextField userField = new JTextField();
         JPasswordField passField = new JPasswordField();
         JButton signInBtn = new JButton("Sign In");
         JButton registerBtn = new JButton("Register");
+
 
         panel.add(new JLabel("Username:"));
         panel.add(userField);
@@ -50,40 +56,64 @@ public class SignInApp {
         frame.setVisible(true);
     }
 
-    // ===================== REGISTER WINDOW =====================
+    // ===================== REGISTER WINDOW (ALL FIELDS) =====================
     private static void showRegisterWindow(JFrame parent) {
         JDialog dialog = new JDialog(parent, "Register New User", true);
-        dialog.setSize(350, 250);
+        dialog.setSize(500, 400);
         dialog.setLocationRelativeTo(parent);
 
-        JPanel panel = new JPanel(new GridLayout(5, 2, 10, 10));
+        JPanel panel = new JPanel(new GridLayout(7, 2, 10, 15));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JTextField userField = new JTextField();
+        JTextField userNameField = new JTextField();
+        JTextField emailField = new JTextField();
         JPasswordField passField = new JPasswordField();
         JPasswordField confirmField = new JPasswordField();
+        JTextField roleField = new JTextField("Student"); // Default role
         JButton createBtn = new JButton("Create Account");
+        JRadioButton option1 = new JRadioButton("Instructor");
+        JRadioButton option2 = new JRadioButton("Student", true);
+        ButtonGroup group = new ButtonGroup();
+        ;
+        group.add(option1);
+        group.add(option2);
+
+
 
         panel.add(new JLabel("Username:"));
-        panel.add(userField);
+        panel.add(userNameField);
+        panel.add(new JLabel("Email:"));
+        panel.add(emailField);
         panel.add(new JLabel("Password:"));
         panel.add(passField);
-        panel.add(new JLabel("Confirm:"));
+        panel.add(new JLabel("Confirm Password:"));
         panel.add(confirmField);
+
+        panel.add(option1);
+        panel.add(option2);
+        panel.add(new JLabel());
+        panel.add(new JLabel());
         panel.add(new JLabel());
         panel.add(createBtn);
 
         createBtn.addActionListener(e -> {
-            String username = userField.getText().trim();
+            String username = userNameField.getText().trim();
+            String email = emailField.getText().trim();
             String pass1 = new String(passField.getPassword());
             String pass2 = new String(confirmField.getPassword());
+            String role = option2.isSelected() ? "Student" : "Instructor";
 
-            if (username.isEmpty() || pass1.isEmpty()) {
-                JOptionPane.showMessageDialog(dialog, "All fields required!", "Error", JOptionPane.ERROR_MESSAGE);
+            // === VALIDATION ===
+            if (username.isEmpty() || email.isEmpty() || pass1.isEmpty()) {
+                JOptionPane.showMessageDialog(dialog, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (!pass1.equals(pass2)) {
                 JOptionPane.showMessageDialog(dialog, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!email.contains("@") || !email.contains(".")) {
+                JOptionPane.showMessageDialog(dialog, "Enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (usernameExists(username)) {
@@ -91,12 +121,17 @@ public class SignInApp {
                 return;
             }
 
-            // Save new user
 
-            users.add(new User(username, pass1));
-            saveUsers(users);
+            //create ID
+            Random rand = new Random();
+            int randomNum = rand.nextInt(1000) +10000;
+            String userID = Integer.toString(randomNum);
 
-            JOptionPane.showMessageDialog(dialog, "Account created! You can now sign in.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            // === ADD NEW USER ===
+            users.addUser(new User(userID, pass1, username, role, email));
+            users.save();
+
+            JOptionPane.showMessageDialog(dialog, "Account created successfully!\nID: " + userID, "Success", JOptionPane.INFORMATION_MESSAGE);
             dialog.dispose();
         });
 
@@ -114,59 +149,33 @@ public class SignInApp {
         if (validateLogin(username, password)) {
             JOptionPane.showMessageDialog(frame, "Welcome, " + username + "!", "Success", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();
-            // Open main app here
-            openMainApp();
+            if(users.getUserByUsername(username).getRole().equalsIgnoreCase("Student")) {
+                studentDashboard();
+            }
+            else{
+                instructorDashboard();
+            }
+
         } else {
             JOptionPane.showMessageDialog(frame, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private static void openMainApp() {
-        JFrame main = new JFrame("Main App");
-        main.setSize(400, 300);
-        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        main.setLocationRelativeTo(null);
-        main.add(new JLabel("Welcome! This is your app.", SwingConstants.CENTER));
-        main.setVisible(true);
-    }
 
-    // ===================== USER STORAGE =====================
-    private static ArrayList<User> loadUsers() {
-        try {
-            if (!Files.exists(FILE)) return new ArrayList<>();
-            String json = Files.readString(FILE);
-            TypeToken<ArrayList<User>> type = new TypeToken<>() {};
-            return gson.fromJson(json, type.getType());
-        } catch (IOException e) {
-            return new ArrayList<>();
-        }
-    }
 
-    private static void saveUsers(ArrayList<User> users) {
-        try {
-            String json = gson.toJson(users);
-            Files.writeString(FILE, json);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    // ===================== VALIDATION =====================
     private static boolean validateLogin(String username, String password) {
-        return loadUsers().stream()
-                .anyMatch(u -> u.username.equals(username) && u.password.equals(password));
+        ArrayList<User> userList = users.getDb();
+
+        for (User u : userList) {
+            if (u.getUserName().equals(username) && u.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean usernameExists(String username) {
-        return loadUsers().stream().anyMatch(u -> u.username.equals(username));
-    }
-
-    private static void createSampleUsersIfNeeded() {
-        if (Files.exists(FILE)) return;
-
-        ArrayList<User> users = new ArrayList<>();
-        users.add(new User("admin", "1234"));
-        saveUsers(users);
-        System.out.println("Created users.json with default admin/1234");
+        return users.getDb().stream().anyMatch(u -> u.getUserName().equals(username));
     }
 }
-
