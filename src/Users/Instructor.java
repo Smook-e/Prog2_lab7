@@ -17,7 +17,7 @@ public class Instructor extends User {
     {
         createdCourses.add(courseId);
     }
-    public void deleteCourse(String courseId)
+    public void removeCourse(String courseId)
     {
         createdCourses.remove(courseId);
     }
