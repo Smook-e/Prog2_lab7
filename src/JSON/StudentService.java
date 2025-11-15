@@ -32,16 +32,16 @@ public class StudentService {
         List<Course> result = new ArrayList<>();
 
         for (String cid : student.getEnrolledCourses()) {
-            Course c = courseService.getCourseByID(cid);
+            Course c = courseService.getCourseById(cid);
             if (c != null) result.add(c);
         }
         return result;
     }
 
     public List<Lesson> getLessonsForCourse(String courseId) {
-        Course c = courseService.getCourseByID(courseId);
+        Course c = courseService.getCourseById(courseId);
         if (c == null) return new ArrayList<>();
-         return new ArrayList<>(Arrays.asList(c.getLessons())); // Convert array to List 
+         return c.getLessons();  
     }
     public boolean markLessonCompleted(Student student, String courseId, String lessonId) {
         student.getProgress().putIfAbsent(courseId, new ArrayList<>());
