@@ -13,7 +13,7 @@ public class CourseService extends JsonDatabaseManager<Course> {
     
     public boolean createCourse(Course course)
     {
-        if(getCourseById(course.getCourseId())!=null)//exist before
+        if(getCourseById(course.getCourseId())!=null)
         {
             return false;
         }
@@ -135,7 +135,7 @@ public class CourseService extends JsonDatabaseManager<Course> {
         Course course = getCourseById(courseId);
         if(course==null)
         {
-            return new ArrayList<>();   
+            return new ArrayList<>();
         }
         return course.getStudents();
     }
