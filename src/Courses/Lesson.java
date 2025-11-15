@@ -1,24 +1,32 @@
 package Courses;
 
+import java.util.ArrayList;
+
 public class Lesson {
     private int lessonId;
     private String title;
     private String content;
-    private String optionalResources[];
+    private ArrayList<String> Resources;
 
-    public Lesson(int lessonId, String title) {
+
+    public Lesson(int lessonId, String title, String content) {
         this.lessonId = lessonId;
+        this.title = title;
+        this.content = content;
+    }
+
+
+    public int getLessonId() {
+        return lessonId;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
     }
 
     public String getTitle() {
         return title;
     }
-
-    public int getLessonId() {
-        return lessonId;
-    }
-
     public String getContent() {
         return content;
     }
@@ -27,16 +35,24 @@ public class Lesson {
         this.content = content;
     }
 
-    public String[] getOptionalResources() {
-        return optionalResources;
+    public ArrayList<String> getOptionalResources() {
+        return Resources;
     }
 
-    public void setOptionalResources(String[] optionalResources) {
-        this.optionalResources = optionalResources;
+    public void addResources(String Resource) {
+        Resources.add(Resource);
     }
     
-    public Lesson[] FetchLessons(Course c)
-    {
-        return c.getLessons();
+    public void removeResources(String Resource) {
+        Resources.remove(Resource);
     }
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "lessonId=" + lessonId +
+                ", title=" + title +
+                ", content=" + content +
+                ", resources=" + Resources +
+                '}';
+      }
 }
