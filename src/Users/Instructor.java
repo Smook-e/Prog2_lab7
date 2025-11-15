@@ -13,5 +13,12 @@ public class Instructor extends User {
     {
         return createdCourses;
     }
-    public void a
+    public void addCreatedCourse(String courseId)
+    {
+        createdCourses.add(courseId);
+    }
+    public void deleteCourse(String courseId)
+    {
+        createdCourses.remove(courseId);
+    }
 }
