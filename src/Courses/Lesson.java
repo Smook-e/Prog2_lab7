@@ -3,20 +3,20 @@ package Courses;
 import java.util.ArrayList;
 
 public class Lesson {
-    private int lessonId;
+    private String lessonId;
     private String title;
     private String content;
     private ArrayList<String> Resources;
 
 
-    public Lesson(int lessonId, String title, String content) {
+    public Lesson(String lessonId, String title, String content) {
         this.lessonId = lessonId;
         this.title = title;
         this.content = content;
     }
 
 
-    public int getLessonId() {
+    public String getLessonId() {
         return lessonId;
     }
 

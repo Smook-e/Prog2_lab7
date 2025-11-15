@@ -3,22 +3,21 @@ package Courses;
 import java.util.ArrayList;
 
 public class Course {
-    private int courseId;
+    private String courseId;
     private String title;
     private String description;
-    private int instructorId;
+    private String instructorId;
     private ArrayList <Lesson> lessons;
     private ArrayList <String> students;
 
-    public Course(int courseId, String title, String description, int instructorId) {
-        //handle course id error
+    public Course(String courseId, String title, String description, String instructorId) {
         this.courseId = courseId;
         this.title = title;
         this.description = description;
         this.instructorId = instructorId;
     }
 
-    public int getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
@@ -30,7 +29,7 @@ public class Course {
         return description;
     }
 
-    public int getInstructorId() {
+    public String getInstructorId() {
         return instructorId;
     }
 
@@ -53,11 +52,11 @@ public class Course {
     {
         lessons.add(l);
     }
-    public Lesson getLessonById(int lessonId)
+    public Lesson getLessonById(String lessonId)
     {
         for(Lesson l : lessons)
         {
-            if(l.getLessonId()==lessonId)
+            if(l.getLessonId().equals(lessonId))
             {
                 return l;
             }
@@ -65,16 +64,16 @@ public class Course {
         return null;
     }
     
-    public void removeLesson(int lessonId)
+    public void removeLesson(String lessonId)
     {
         if(getLessonById(lessonId)!=null)
         {
             lessons.remove(getLessonById(lessonId));
         }
     }
-    public boolean updateLesson(int lessonId, Lesson updatedLesson) {
+    public boolean updateLesson(String lessonId, Lesson updatedLesson) {
         for(int i = 0; i < lessons.size(); i++) {
-            if(lessons.get(i).getLessonId()==lessonId) {
+            if(lessons.get(i).getLessonId().equals(lessonId)) {
                 lessons.set(i, updatedLesson);
                 return true;
             }
@@ -98,5 +97,4 @@ public class Course {
     public int getEnrolledStudentsCount() {
         return students.size();
     }
- 
 }
