@@ -126,7 +126,7 @@ public class CourseService extends JsonDatabaseManager<Course> {
         Course course = getCourseById(courseId);
         if(course==null)
         {
-            return null;   
+             return new ArrayList<>(); 
         }
         return course.getLessons();
     }
@@ -135,7 +135,7 @@ public class CourseService extends JsonDatabaseManager<Course> {
         Course course = getCourseById(courseId);
         if(course==null)
         {
-            return null;   
+            return new ArrayList<>();   
         }
         return course.getStudents();
     }
