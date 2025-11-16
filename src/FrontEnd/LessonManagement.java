@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Mega Store
  */
-public class LessonManagement extends javax.swing.JPanel {
+public class LessonManagement extends javax.swing.JFrame {
 
     /**
      * Creates new form LessonManagement
@@ -53,10 +53,11 @@ private void loadLessons() {
     for (Lesson l : lessons) {
         boolean check = completed.contains(l.getLessonId());
 
-        model.addRow(new Object[]{
-                l.getLessonId(),
-                l.getTitle(),
-        });
+       model.addRow(new Object[]{
+    l.getLessonId(),
+    l.getTitle(),
+    check ? "Completed" : "Not Completed"
+});
     }
 }
 
@@ -128,6 +129,8 @@ private void loadLessons() {
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
             new EnrolledOnlyCoursesFrame(student, studentService, courseService).setVisible(true);
+            this.dispose();
+
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void markCompletedBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markCompletedBtnActionPerformed

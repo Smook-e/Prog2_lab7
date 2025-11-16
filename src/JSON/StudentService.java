@@ -20,13 +20,14 @@ public class StudentService {
     }
 
     public boolean enrollStudentInCourse(Student student, String courseId) {
-        if (student.getEnrolledCourses().contains(courseId)) {
-            return false;
-        }
-        student.getEnrolledCourses().add(courseId);
-        userService.save(); 
-        return true;
+    if (student.getEnrolledCourses().contains(courseId)) {
+        return false;
     }
+    student.getEnrolledCourses().add(courseId);
+    userService.save(); 
+    return true;
+}
+
 
     public List<Course> getEnrolledCourses(Student student) {
         List<Course> result = new ArrayList<>();

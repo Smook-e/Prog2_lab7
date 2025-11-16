@@ -1,0 +1,44 @@
+[
+  {
+    "userID": "1",
+    "password": "abc",
+    "userName": "alice123",
+    "role": "student",
+    "email": "alice@example.com"
+  },
+  {
+    "userID": "2",
+    "password": "abc",
+    "userName": "john123",
+    "role": "student",
+    "email": "john@example.com"
+  },
+  {
+    "userID": "3",
+    "password": "abc",
+    "userName": "steve123",
+    "role": "Instructor",
+    "email": "steve@example.com"
+  },
+  {
+    "userID": "10234",
+    "password": "abc",
+    "userName": "username5",
+    "role": "Student",
+    "email": "username5@gmail.com"
+  },
+  {
+    "userID": "10813",
+    "password": "abc",
+    "userName": "username6",
+    "role": "Instructor",
+    "email": "username6@gmail.com"
+  },
+  {
+    "userID": "10940",
+    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "userName": "instructor1",
+    "role": "Instructor",
+    "email": "ins@gmail.com"
+  }
+]

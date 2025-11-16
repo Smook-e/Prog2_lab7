@@ -145,23 +145,23 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
 
     private void enrollBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollBtnActionPerformed
         // TODO add your handling code here:
-        int row = coursesTable.getSelectedRow();
+         int row = coursesTable.getSelectedRow();
 
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a course.");
-            return;
-        }
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a course.");
+        return;
+    }
 
-        String courseId = coursesTable.getValueAt(row, 0).toString();
+    String courseId = coursesTable.getValueAt(row, 0).toString();
 
-        boolean ok = student.enrollCourse(courseId);
+    boolean ok = student.enrollCourse(courseId);
 
-        if (ok) {
-            studentService.enrollStudentInCourse(student, courseId); 
-            JOptionPane.showMessageDialog(this, "Enrolled successfully!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Already enrolled.");
-        }
+    if (ok) {
+        studentService.enrollStudentInCourse(student, courseId); // <--- ENSURE SAVE
+        JOptionPane.showMessageDialog(this, "Enrolled successfully!");
+    } else {
+        JOptionPane.showMessageDialog(this, "Already enrolled.");
+    }
     }//GEN-LAST:event_enrollBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -172,7 +172,7 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
 
     private void browseBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtn1ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) coursesTable.getModel();
+         DefaultTableModel model = (DefaultTableModel) coursesTable.getModel();
         model.setRowCount(0);
 
         List<Course> courses = studentService.browseCourses();
@@ -188,7 +188,6 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
                 c.getTitle()
             });
         }
-
     }//GEN-LAST:event_browseBtn1ActionPerformed
 
     /**
