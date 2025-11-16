@@ -23,8 +23,13 @@ public class InstructorManagment {
     public boolean createCourse(Instructor instructor,String courseId,String title,String description)
     {
       
-        Course course = new Course(courseId,title,description);
-        return courseService.createCourse(course);
+        Course course = new Course(courseId,instructor.getUserID(),title,description);
+        boolean done=courseService.createCourse(course);
+        if(done)
+        {
+            instructor.addCreatedCourse(courseId);
+        } 
+        return done;
        
     }
     public boolean updateCourse(Instructor instructor,Course course)
