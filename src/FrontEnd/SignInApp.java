@@ -175,6 +175,10 @@ public class SignInApp {
     Student s = (Student) users.getUserByUsername(username);
     s.setStudentService(studentService);
     studentDashboard(s);
+                // Open CourseManagementStudent frame
+            CourseManagementStudent cms = new CourseManagementStudent(s, studentService, courseService);
+            cms.setVisible(true);
+            cms.setLocationRelativeTo(null);
             }
             else{
                 instructorDashboard();
@@ -185,37 +189,7 @@ public class SignInApp {
         }
     }
 
-   private static void studentDashboard(Student student) {
-    JFrame main = new JFrame("Student Dashboard");
-    main.setSize(500, 400);
-    main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    main.setLocationRelativeTo(null);
 
-    JPanel panel = new JPanel(new GridLayout(5, 1, 10, 15));
-    panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-    JButton manageCoursesBtn = new JButton("Browse / Enroll Courses");
-    manageCoursesBtn.addActionListener(e -> {
-        JFrame f = new CourseManagementStudent(student, studentService, courseService);
-        f.setVisible(true);
-        main.dispose();
-    });
-
-    JButton signOutBtn = new JButton("Sign Out");
-    signOutBtn.addActionListener(e -> {
-        main.dispose();
-        showSignInWindow();
-    });
-
-    panel.add(new JLabel("Welcome, " + student.getUserName()));
-    panel.add(manageCoursesBtn);
-    panel.add(new JLabel());
-    panel.add(new JLabel());
-    panel.add(signOutBtn);
-
-    main.add(panel);
-    main.setVisible(true);
-}
 
     private static void instructorDashboard() {
         JFrame main = new JFrame("instructorDashboard");
