@@ -125,7 +125,7 @@ public class InstructorDashboard extends javax.swing.JFrame {
 
         scrollPane1.add(jScrollPane1);
 
-        button6.setLabel("back");
+        button6.setLabel("Log Out");
         button6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button6ActionPerformed(evt);
