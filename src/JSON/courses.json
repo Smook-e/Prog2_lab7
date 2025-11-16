@@ -1,5 +1,10 @@
-{
-  "name": "Alice",
-  "age": 28,
-  "email": "alice@example.com"
-}
+[
+  {
+    "courseId": "C101",
+    "title": "Java Programming",
+    "description": "Learn Java from basics to advanced.",
+    "instructorId": "I1001",
+    "lessons": [],
+    "students": []
+  }
+]

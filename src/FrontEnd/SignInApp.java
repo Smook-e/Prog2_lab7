@@ -161,33 +161,44 @@ public class SignInApp {
     }
 
     // ===================== SIGN IN LOGIC =====================
-    private static void handleSignIn(String username, String password, JFrame frame) {
-        if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        String hashedPassword = hashPassword(password);
-        if (validateLogin(username, hashedPassword)) {
-            JOptionPane.showMessageDialog(frame, "Welcome, " + username + "!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            frame.dispose();
-            if(users.getUserByUsername(username).getRole().equalsIgnoreCase("Student")) {
-               
-    Student s = (Student) users.getUserByUsername(username);
-    s.setStudentService(studentService);
-    studentDashboard(s);
-                // Open CourseManagementStudent frame
+   private static void handleSignIn(String username, String password, JFrame frame) {
+    if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(frame, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String hashedPassword = hashPassword(password);
+
+    if (validateLogin(username, hashedPassword)) {
+        JOptionPane.showMessageDialog(frame, "Welcome, " + username + "!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        frame.dispose();
+
+        User u = users.getUserByUsername(username);
+
+        if (u.getRole().equalsIgnoreCase("Student")) {
+            // Option 2: safely create Student object if needed
+            Student s;
+            if (u instanceof Student) {
+                s = (Student) u;
+            } else {
+                s = new Student(u.getUserID(), u.getUserName(), u.getEmail(), u.getPassword());
+                s.setStudentService(studentService);
+            }
+
+            // Open CourseManagementStudent frame
             CourseManagementStudent cms = new CourseManagementStudent(s, studentService, courseService);
             cms.setVisible(true);
             cms.setLocationRelativeTo(null);
-            }
-            else{
-                instructorDashboard();
-            }
 
         } else {
-            JOptionPane.showMessageDialog(frame, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            instructorDashboard();
         }
+
+    } else {
+        JOptionPane.showMessageDialog(frame, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
     }
+}
+
 
 
 
