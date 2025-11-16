@@ -12,6 +12,7 @@ import JSON.StudentService;
 import Users.Instructor;
 import Users.Student;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -36,22 +37,26 @@ public class ViewStudentsProgress extends javax.swing.JFrame {
     }
     private void studentProgress()
     {   
-        Course course=courseService.getCourseById(courseId);
-        ArrayList<Student> students=course.getStudents();
-        ArrayList<Lesson> lessons=course.getLessons();
-        int numlessons=(lessons!=null)?lessons.size():0;
-        DefaultTableModel model=new DefaultTableModel();
+        DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
+        model.setRowCount(0);
+        ArrayList<String> students=courseService.getEnrolledStudents(courseId);
+        
         model.addColumn("ID");
         model.addColumn("Name");
         model.addColumn("Completed Lessons");
         for(String studentId : students)
         {   
-           
+           Student student= studentService.getStudentById(studentId);
+           if(student!=null)
+           {
+               List<String> completedLessons=student.getProgress().getOrDefault(courseId, new ArrayList<>());
+               int lessonsCount=completedLessons.size();
+               model.addRow(new Object[]{student.getUserID(),student.getUserName(),lessonsCount});
+           }
         }
         
-        
-        
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

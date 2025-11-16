@@ -137,7 +137,7 @@ public class EditLesson extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Failed to update lesson!");
             return;
         }
-        InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor);
+        InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor,studentService);
         d.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

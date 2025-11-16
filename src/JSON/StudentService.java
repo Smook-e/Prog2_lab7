@@ -54,4 +54,8 @@ public class StudentService {
 
         return false;
     }
+    public Student getStudentById(String studentId)
+    {
+        return (Student) userService.getUserByID(studentId);
+    }
 }

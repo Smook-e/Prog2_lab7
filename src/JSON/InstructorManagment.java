@@ -5,6 +5,7 @@
 package JSON;
 
 import Courses.Course;
+import JSON.StudentService;
 import Courses.Lesson;
 import Users.Instructor;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class InstructorManagment {
     public InstructorManagment(CourseService courseService,StudentService studentService)
     {
         this.courseService=courseService;
-        this.studentService=studentService[;]
+        this.studentService=studentService;
     }
     
     public boolean createCourse(Instructor instructor,String courseId,String title,String description)
@@ -85,7 +86,7 @@ public class InstructorManagment {
     }
     public StudentService getStudentService()
     {
-        return StudentService;
+        return studentService;
     }
     
    }
