@@ -99,7 +99,9 @@ private CourseService courseService;
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // code for browse and enroll
-            new BrowseEnrollCourses(student, studentService, courseService).setVisible(true);
+         BrowseEnrollCourses b =    new BrowseEnrollCourses(student, studentService, courseService);
+         b.setVisible(true);
+         b.setLocationRelativeTo(null);
     this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 

@@ -139,27 +139,33 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
 
     private void myCoursesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myCoursesBtnActionPerformed
         
-         new EnrolledOnlyCoursesFrame(student, studentService, courseService).setVisible(true);
+        EnrolledOnlyCoursesFrame e =  new EnrolledOnlyCoursesFrame(student, studentService, courseService);
+        e.setVisible(true);
+        e.setLocationRelativeTo(null);
+
     this.dispose();
     }//GEN-LAST:event_myCoursesBtnActionPerformed
 
     private void enrollBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollBtnActionPerformed
         // TODO add your handling code here
-    if (student.getEnrolledCourses().contains(courseId)) {
-        return false;
-    }
-    student.getEnrolledCourses().add(courseId);
-    Course course = courseService.getCourseByID(courseId);
-    if (course != null) {
-        if (!course.getStudents().contains(student.getUserID())) {
-            course.getStudents().add(student.getUserID());
+        int row = coursesTable.getSelectedRow();
+
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a course.");
+            return;
         }
+
+        String courseId = coursesTable.getValueAt(row, 0).toString();
+
+        boolean ok = student.enrollCourse(courseId);
+
+        if (ok) {
+            studentService.enrollStudentInCourse(student, courseId); // <--- ENSURE SAVE
+            JOptionPane.showMessageDialog(this, "Enrolled successfully!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Already enrolled.");
+        }//GEN-LAST:event_enrollBtnActionPerformed
     }
-    userService.save();    
-    courseService.save();
-
-    return true;}//GEN-LAST:event_enrollBtnActionPerformed
-
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
         new CourseManagementStudent(student, studentService, courseService).setVisible(true);
@@ -179,6 +185,7 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
         }
 
         for (Course c : courses) {
+            System.out.println(c.getCourseId());
             model.addRow(new Object[]{
                 c.getCourseId(),
                 c.getTitle()

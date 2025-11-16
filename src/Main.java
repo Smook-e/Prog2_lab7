@@ -1,5 +1,12 @@
+
 import FrontEnd.BrowseEnrollCourses;
+
+import Courses.Course;
+import Courses.Lesson;
+import JSON.CourseService;
+
 import JSON.JsonDatabaseManager;
+import JSON.StudentService;
 import JSON.UserService;
 import Users.User;
 import com.google.gson.*;
@@ -26,6 +33,16 @@ public class Main {
     }
     public static void main(String[] args) throws IOException {
 
+
+       UserService users= new UserService("src\\JSON\\users.json");
+       CourseService courseService = new CourseService("src\\JSON\\courses.json");
+       StudentService studentService = new StudentService(users, courseService);
+
+        List<Course> courses = studentService.browseCourses();
+        for(Course course : courses) {
+            System.out.println(course.getCourseId());
+            System.out.println(course.getTitle());
+        }
 
     }
 }
