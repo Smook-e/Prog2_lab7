@@ -14,15 +14,7 @@ public class Lesson {
         this.title = title;
         this.content = content;
     }
-
-    public Lesson(String lessonId, String title, String content, ArrayList<String> Resources) {
-        this.lessonId = lessonId;
-        this.title = title;
-        this.content = content;
-        this.Resources = Resources;
-    }
-
-
+    
     public String getLessonId() {
         return lessonId;
     }
