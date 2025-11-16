@@ -14,8 +14,7 @@ public class Lesson {
         this.title = title;
         this.content = content;
     }
-
-
+    
     public String getLessonId() {
         return lessonId;
     }

@@ -1,5 +1,7 @@
 package FrontEnd;
-
+import JSON.StudentService;
+import JSON.CourseService;
+import Users.Student;
 import JSON.UserService;
 import Users.User;
 import javax.swing.*;
@@ -12,10 +14,14 @@ import java.util.*;
 
 public class SignInApp {
     static UserService users;
+    static CourseService courseService;
+    static StudentService studentService;
 
     static {
         try {
             users = new UserService("src\\JSON\\users.json");
+            courseService = new CourseService("src\\JSON\\courses.json");
+            studentService = new StudentService(users, courseService);
         } catch (IOException e) {
             System.out.println("Error loading users!");
 
@@ -159,49 +165,47 @@ public class SignInApp {
     }
 
     // ===================== SIGN IN LOGIC =====================
-    private static void handleSignIn(String username, String password, JFrame frame) {
-        if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        String hashedPassword = hashPassword(password);
-        if (validateLogin(username, hashedPassword)) {
-            JOptionPane.showMessageDialog(frame, "Welcome, " + username + "!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            frame.dispose();
-            if(users.getUserByUsername(username).getRole().equalsIgnoreCase("Student")) {
-                studentDashboard();
+   private static void handleSignIn(String username, String password, JFrame frame) {
+    if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(frame, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String hashedPassword = hashPassword(password);
+
+    if (validateLogin(username, hashedPassword)) {
+        JOptionPane.showMessageDialog(frame, "Welcome, " + username + "!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        frame.dispose();
+
+        User u = users.getUserByUsername(username);
+
+        if (u.getRole().equalsIgnoreCase("Student")) {
+            // Option 2: safely create Student object if needed
+            Student s;
+            if (u instanceof Student) {
+                s = (Student) u;
+            } else {
+                s = new Student(u.getUserID(), u.getUserName(), u.getEmail(), u.getPassword());
+                s.setStudentService(studentService);
             }
-            else{
-                instructorDashboard();
-            }
+
+            // Open CourseManagementStudent frame
+            CourseManagementStudent cms = new CourseManagementStudent(s, studentService, courseService);
+            cms.setVisible(true);
+            cms.setLocationRelativeTo(null);
 
         } else {
-            JOptionPane.showMessageDialog(frame, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            instructorDashboard();
         }
-    }
 
-    private static void studentDashboard() {
-        JFrame main = new JFrame("studentDashboard");
-        main.setSize(500, 400);
-        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        main.setLocationRelativeTo(null);
-        JPanel panel = new JPanel(new GridLayout(7, 1, 10, 15));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        JButton signOutBtn = new JButton("Sign Out");
-        signOutBtn.addActionListener(e -> {
-            main.dispose();
-            showSignInWindow();
-        });
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(signOutBtn);
-        main.add(panel);
-        main.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(frame, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
     }
+}
+
+
+
+
     private static void instructorDashboard() {
         JFrame main = new JFrame("instructorDashboard");
         main.setSize(500, 400);
