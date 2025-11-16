@@ -4,6 +4,11 @@
  */
 package FrontEnd;
 
+import JSON.InstructorManagment;
+import Users.Instructor;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
 /**
  *
  * @author HP
@@ -13,8 +18,18 @@ public class InstructorDashboard extends javax.swing.JFrame {
     /**
      * Creates new form InstructorDashboard
      */
+    private InstructorManagment instructorManagment;
+    private Instructor instructor;
+    DefaultListModel<String> listModel=new DefaultListModel<>();
     public InstructorDashboard() {
         initComponents();
+        jList1.setModel(listModel);
+        courseList();
+    }
+    private void courseList()
+    {
+        jList1=new JList<>(listModel);
+        jScrollPane1.setViewportView(jList1);
     }
 
     /**
@@ -131,7 +146,8 @@ public class InstructorDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        // TODO add your handling code here:
+        instructorManagment.createCourse(instructor, courseId, title, description);
+        courseList();
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed

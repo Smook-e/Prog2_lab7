@@ -4,17 +4,49 @@
  */
 package FrontEnd;
 
+import JSON.CourseService;
+import JSON.InstructorManagment;
+import Users.Instructor;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
  */
-public class CreateAndEdit extends javax.swing.JFrame {
+public class CreateCourse extends javax.swing.JFrame {
 
     /**
-     * Creates new form CreateAndEdit
+     * Creates new form CreateCourse
      */
-    public CreateAndEdit() {
+    InstructorManagment instructorManagment;
+    CourseService courseService;
+    Instructor instructor;
+    
+    public CreateCourse(InstructorManagment instructorManagment,CourseService courseService,Instructor instructor) {
         initComponents();
+        this.courseService=courseService;
+        this.instructorManagment=instructorManagment;
+        this.instructor=instructor;
+        button1.addActionListener(e->{
+            String courseId=jTextField3.getText().trim();
+            String title=jTextField1.getText().trim();
+            String description=jTextField2.getText().trim();
+            if(courseId.isEmpty()||title.isEmpty()||description.isEmpty())
+                {
+                    JOptionPane.showMessageDialog(this,"ALL Fields Are Required!");
+                    return;
+                }
+            boolean done=instructorManagment.createCourse(instructor, courseId, title, description);
+            if(done)
+                {
+                   JOptionPane.showMessageDialog(this,"Course successfully created.");
+                   this.dispose();
+                }
+            else
+                {
+                    JOptionPane.showMessageDialog(this,"Failed to create course.");
+                }
+           });
     }
 
     /**
@@ -52,6 +84,11 @@ public class CreateAndEdit extends javax.swing.JFrame {
         jLabel1.setText("Course ID:");
 
         jTextField3.setText("jTextField3");
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,6 +137,10 @@ public class CreateAndEdit extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -117,20 +158,24 @@ public class CreateAndEdit extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateAndEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateAndEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateAndEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateAndEdit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateCourse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        //</editor-fold>
+        
         /* Create and display the form */
+        InstructorManagment instructorManagment=new InstructorManagment(courseService);
+        CourseService courseService=new CourseService();
+        Instructor instructor=new Instructor();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateAndEdit().setVisible(true);
+                new CreateCourse(instructorManagment,courseService,instructor).setVisible(true);
             }
         });
     }

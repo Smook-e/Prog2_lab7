@@ -48,13 +48,13 @@ public class InstructorManagment {
         }
         return courseService.deleteCourse(courseId);
     }
-    public boolean createLesson(Instructor instructor,String courseId,String lessonId,String content)
+    public boolean createLesson(Instructor instructor,String courseId,String lessonId,String title,String content)
     {
         if(!instructor.getCreatedCourses().contains(courseId))
         {
             return false;
         }
-        Lesson lesson=new Lesson(lessonId,content);
+        Lesson lesson=new Lesson(lessonId,title,content);
         return courseService.addLesson(courseId, lesson);
     }
     public boolean editLesson(Instructor instructor,String courseId,Lesson lesson,String lessonId)
