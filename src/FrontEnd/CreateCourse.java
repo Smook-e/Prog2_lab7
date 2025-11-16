@@ -30,26 +30,6 @@ public class CreateCourse extends javax.swing.JFrame {
         this.courseService=courseService;
         this.instructorManagment=instructorManagment;
         this.instructor=instructor;
-        button1.addActionListener(e->{
-            String courseId=jTextField3.getText().trim();
-            String title=jTextField1.getText().trim();
-            String description=jTextField2.getText().trim();
-            if(courseId.isEmpty()||title.isEmpty()||description.isEmpty())
-                {
-                    JOptionPane.showMessageDialog(this,"ALL Fields Are Required!");
-                    return;
-                }
-            boolean done=instructorManagment.createCourse(instructor, courseId, title, description);
-            if(done)
-                {
-                   JOptionPane.showMessageDialog(this,"Course successfully created.");
-                   this.dispose();
-                }
-            else
-                {
-                    JOptionPane.showMessageDialog(this,"Failed to create course.");
-                }
-           });
     }
 
     /**
@@ -76,6 +56,11 @@ public class CreateCourse extends javax.swing.JFrame {
         jTextField2.setText("jTextField2");
 
         button1.setLabel("save");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
 
         label1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         label1.setText("Course Title:");
@@ -143,6 +128,31 @@ public class CreateCourse extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+            String courseId=jTextField3.getText().trim();
+            String title=jTextField1.getText().trim();
+            String description=jTextField2.getText().trim();
+            if(courseId.isEmpty()||title.isEmpty()||description.isEmpty())
+                {
+                    JOptionPane.showMessageDialog(this,"ALL Fields Are Required!");
+                    return;
+                }
+            boolean done=instructorManagment.createCourse(instructor, courseId, title, description);
+            if(done)
+                {
+                   JOptionPane.showMessageDialog(this,"Course successfully created.");
+                }
+            else
+                {
+                    JOptionPane.showMessageDialog(this,"Failed to create course.");
+                    return;
+                }
+             InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor);
+             d.setVisible(true);
+             this.dispose();
+           
+    }//GEN-LAST:event_button1ActionPerformed
 
     /**
      * @param args the command line arguments
