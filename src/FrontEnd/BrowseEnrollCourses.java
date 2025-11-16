@@ -144,25 +144,21 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
     }//GEN-LAST:event_myCoursesBtnActionPerformed
 
     private void enrollBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollBtnActionPerformed
-        // TODO add your handling code here:
-        int row = coursesTable.getSelectedRow();
-
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a course.");
-            return;
+        // TODO add your handling code here
+    if (student.getEnrolledCourses().contains(courseId)) {
+        return false;
+    }
+    student.getEnrolledCourses().add(courseId);
+    Course course = courseService.getCourseByID(courseId);
+    if (course != null) {
+        if (!course.getStudents().contains(student.getUserID())) {
+            course.getStudents().add(student.getUserID());
         }
+    }
+    userService.save();    
+    courseService.save();
 
-        String courseId = coursesTable.getValueAt(row, 0).toString();
-
-        boolean ok = student.enrollCourse(courseId);
-
-        if (ok) {
-            studentService.enrollStudentInCourse(student, courseId); 
-            JOptionPane.showMessageDialog(this, "Enrolled successfully!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Already enrolled.");
-        }
-    }//GEN-LAST:event_enrollBtnActionPerformed
+    return true;}//GEN-LAST:event_enrollBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
