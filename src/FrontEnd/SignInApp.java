@@ -1,5 +1,7 @@
 package FrontEnd;
-
+import JSON.StudentService;
+import JSON.CourseService;
+import Users.Student;
 import JSON.UserService;
 import Users.User;
 import javax.swing.*;
@@ -12,10 +14,14 @@ import java.util.*;
 
 public class SignInApp {
     static UserService users;
+    static CourseService courseService;
+    static StudentService studentService;
 
     static {
         try {
             users = new UserService("src\\JSON\\users.json");
+            courseService = new CourseService("src\\JSON\\courses.json");
+            studentService = new StudentService(users, courseService);
         } catch (IOException e) {
             System.out.println("Error loading users!");
 
@@ -165,7 +171,10 @@ public class SignInApp {
             JOptionPane.showMessageDialog(frame, "Welcome, " + username + "!", "Success", JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();
             if(users.getUserByUsername(username).getRole().equalsIgnoreCase("Student")) {
-                studentDashboard();
+               
+    Student s = (Student) users.getUserByUsername(username);
+    s.setStudentService(studentService);
+    studentDashboard(s);
             }
             else{
                 instructorDashboard();
@@ -176,28 +185,38 @@ public class SignInApp {
         }
     }
 
-    private static void studentDashboard() {
-        JFrame main = new JFrame("studentDashboard");
-        main.setSize(500, 400);
-        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        main.setLocationRelativeTo(null);
-        JPanel panel = new JPanel(new GridLayout(7, 1, 10, 15));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        JButton signOutBtn = new JButton("Sign Out");
-        signOutBtn.addActionListener(e -> {
-            main.dispose();
-            showSignInWindow();
-        });
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(signOutBtn);
-        main.add(panel);
-        main.setVisible(true);
-    }
+   private static void studentDashboard(Student student) {
+    JFrame main = new JFrame("Student Dashboard");
+    main.setSize(500, 400);
+    main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    main.setLocationRelativeTo(null);
+
+    JPanel panel = new JPanel(new GridLayout(5, 1, 10, 15));
+    panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+    JButton manageCoursesBtn = new JButton("Browse / Enroll Courses");
+    manageCoursesBtn.addActionListener(e -> {
+        JFrame f = new CourseManagementStudent(student, studentService, courseService);
+        f.setVisible(true);
+        main.dispose();
+    });
+
+    JButton signOutBtn = new JButton("Sign Out");
+    signOutBtn.addActionListener(e -> {
+        main.dispose();
+        showSignInWindow();
+    });
+
+    panel.add(new JLabel("Welcome, " + student.getUserName()));
+    panel.add(manageCoursesBtn);
+    panel.add(new JLabel());
+    panel.add(new JLabel());
+    panel.add(signOutBtn);
+
+    main.add(panel);
+    main.setVisible(true);
+}
+
     private static void instructorDashboard() {
         JFrame main = new JFrame("instructorDashboard");
         main.setSize(500, 400);
