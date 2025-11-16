@@ -147,7 +147,6 @@ public class CreateCourse extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
