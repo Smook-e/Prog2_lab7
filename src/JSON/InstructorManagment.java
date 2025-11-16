@@ -77,6 +77,10 @@ public class InstructorManagment {
     {
         return courseService.getEnrolledStudents(courseId);
     }
+    public CourseService getCourseService()
+    {
+        return courseService;
+    }
     
    }
     
