@@ -51,14 +51,16 @@ private void loadLessons() {
     List<String> completed = student.getProgress().getOrDefault(courseId, new ArrayList<>());
 
     for (Lesson l : lessons) {
-        boolean check = completed.contains(l.getLessonId());
+        boolean isCompleted = completed.contains(l.getLessonId());
 
         model.addRow(new Object[]{
                 l.getLessonId(),
                 l.getTitle(),
+                isCompleted ? "Yes" : "No"   
         });
     }
 }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
