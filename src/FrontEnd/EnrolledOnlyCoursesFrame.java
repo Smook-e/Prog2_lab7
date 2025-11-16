@@ -39,7 +39,7 @@ private Student student;
         DefaultTableModel model = (DefaultTableModel) enrolledTable.getModel();
         model.setRowCount(0);
 
-        List<Course> list = studentService.getEnrolledCourses(student);
+        List<Course> list = courseService.getEnrolledCourses(student.getUserID());
 
 
 

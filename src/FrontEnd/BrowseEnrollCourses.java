@@ -138,7 +138,7 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myCoursesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myCoursesBtnActionPerformed
-        List<Course> list = studentService.getEnrolledCourses(student);
+        List<Course> list = courseService.getEnrolledCourses(student.getUserID());
         if(list.isEmpty()){
             JOptionPane.showMessageDialog(this, "You are not enrolled in any course.");
             return;
