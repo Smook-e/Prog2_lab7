@@ -127,7 +127,7 @@ private void loadLessons() {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
-            new BrowseEnrollCourses(student, studentService, courseService).setVisible(true);
+            new EnrolledOnlyCoursesFrame(student, studentService, courseService).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void markCompletedBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markCompletedBtnActionPerformed

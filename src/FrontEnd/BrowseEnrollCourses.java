@@ -49,10 +49,10 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         coursesTable = new javax.swing.JTable();
-        browseBtn = new javax.swing.JButton();
+        myCoursesBtn = new javax.swing.JButton();
         enrollBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
-        viewLessonsBtn = new javax.swing.JButton();
+        browseBtn1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,10 +69,10 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(coursesTable);
 
-        browseBtn.setText("Browse");
-        browseBtn.addActionListener(new java.awt.event.ActionListener() {
+        myCoursesBtn.setText("view my enrolled courses");
+        myCoursesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                browseBtnActionPerformed(evt);
+                myCoursesBtnActionPerformed(evt);
             }
         });
 
@@ -90,10 +90,10 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
             }
         });
 
-        viewLessonsBtn.setText("View Lessons ");
-        viewLessonsBtn.addActionListener(new java.awt.event.ActionListener() {
+        browseBtn1.setText("Browse");
+        browseBtn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewLessonsBtnActionPerformed(evt);
+                browseBtn1ActionPerformed(evt);
             }
         });
 
@@ -107,25 +107,25 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(enrollBtn)
                 .addGap(18, 18, 18)
-                .addComponent(browseBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewLessonsBtn)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(browseBtn1)
+                .addGap(18, 18, 18)
+                .addComponent(myCoursesBtn)
+                .addContainerGap(48, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(258, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(browseBtn)
                     .addComponent(enrollBtn)
                     .addComponent(backBtn)
-                    .addComponent(viewLessonsBtn))
+                    .addComponent(browseBtn1)
+                    .addComponent(myCoursesBtn))
                 .addGap(19, 19, 19))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -137,25 +137,11 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
-        // TODO add your handling code here:
-         DefaultTableModel model = (DefaultTableModel) coursesTable.getModel();
-        model.setRowCount(0);
-
-        List<Course> courses = studentService.browseCourses();
-
-        if (courses == null || courses.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No courses available.");
-            return;
-        }
-
-        for (Course c : courses) {
-            model.addRow(new Object[]{
-                c.getCourseId(),
-                c.getTitle()
-            });
-        }
-    }//GEN-LAST:event_browseBtnActionPerformed
+    private void myCoursesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myCoursesBtnActionPerformed
+        
+         new EnrolledOnlyCoursesFrame(student, studentService, courseService).setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_myCoursesBtnActionPerformed
 
     private void enrollBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollBtnActionPerformed
         // TODO add your handling code here:
@@ -183,21 +169,9 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
-    private void viewLessonsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewLessonsBtnActionPerformed
+    private void browseBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtn1ActionPerformed
         // TODO add your handling code here:
-           int row = coursesTable.getSelectedRow();
-
-    if (row == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a course first.");
-        return;
-    }
-
-   
-    String courseId = coursesTable.getValueAt(row, 0).toString();
-    new LessonManagement(student, studentService, courseService, courseId).setVisible(true);
-
-    this.dispose();
-    }//GEN-LAST:event_viewLessonsBtnActionPerformed
+    }//GEN-LAST:event_browseBtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,10 +179,10 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    private javax.swing.JButton browseBtn;
+    private javax.swing.JButton browseBtn1;
     private javax.swing.JTable coursesTable;
     private javax.swing.JButton enrollBtn;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton viewLessonsBtn;
+    private javax.swing.JButton myCoursesBtn;
     // End of variables declaration//GEN-END:variables
 }
