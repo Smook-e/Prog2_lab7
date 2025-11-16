@@ -151,29 +151,19 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
     }//GEN-LAST:event_myCoursesBtnActionPerformed
 
     private void enrollBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollBtnActionPerformed
-<<<<<<< HEAD
         // TODO add your handling code here
         int row = coursesTable.getSelectedRow();
-=======
-        // TODO add your handling code here:
-         int row = coursesTable.getSelectedRow();
->>>>>>> d4b3aa058ed2d4441e6597ea52466355dd1189fc
 
-    if (row == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a course.");
-        return;
-    }
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a course.");
+            return;
+        }
 
-<<<<<<< HEAD
         String courseId = coursesTable.getValueAt(row, 0).toString();
         boolean studentEnrolled =  courseService.enrollStudent(courseId,student.getUserID());
-=======
-    String courseId = coursesTable.getValueAt(row, 0).toString();
->>>>>>> d4b3aa058ed2d4441e6597ea52466355dd1189fc
 
-    boolean ok = student.enrollCourse(courseId);
+        boolean ok = student.enrollCourse(courseId);
 
-<<<<<<< HEAD
         if (studentEnrolled) {
             studentService.enrollStudentInCourse(student, courseId); // <--- ENSURE SAVE
             JOptionPane.showMessageDialog(this, "Enrolled successfully!");
@@ -181,16 +171,6 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Already enrolled.");
         }//GEN-LAST:event_enrollBtnActionPerformed
     }
-=======
-    if (ok) {
-        studentService.enrollStudentInCourse(student, courseId); // <--- ENSURE SAVE
-        JOptionPane.showMessageDialog(this, "Enrolled successfully!");
-    } else {
-        JOptionPane.showMessageDialog(this, "Already enrolled.");
-    }
-    }//GEN-LAST:event_enrollBtnActionPerformed
-
->>>>>>> d4b3aa058ed2d4441e6597ea52466355dd1189fc
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
         new CourseManagementStudent(student, studentService, courseService).setVisible(true);
@@ -199,7 +179,7 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
 
     private void browseBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtn1ActionPerformed
         // TODO add your handling code here:
-         DefaultTableModel model = (DefaultTableModel) coursesTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) coursesTable.getModel();
         model.setRowCount(0);
 
         List<Course> courses = studentService.browseCourses();
@@ -216,6 +196,7 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
                 c.getTitle()
             });
         }
+
     }//GEN-LAST:event_browseBtn1ActionPerformed
 
     /**
