@@ -1,3 +1,6 @@
+import Courses.Course;
+import Courses.Lesson;
+import JSON.CourseService;
 import JSON.JsonDatabaseManager;
 import JSON.UserService;
 import Users.User;
@@ -9,19 +12,12 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
-//        String path = "src\\JSON\\users.json";
-//        JsonDatabaseManager<User> db = new JsonDatabaseManager(path);
-//        db.print();
-        UserService a = new UserService("src\\JSON\\users.json");
-        for(User u : a.getDb()) {
-            if(u.getPassword().equals("abc") && u.getUserName().equals("alice123")){
-                System.out.println(true);
-            }
-        }
-
-//
-
+        CourseService c1 = new CourseService("C:\\Users\\Mega Store\\Documents\\NetBeansProjects\\JavaProject7\\build\\classes\\JSON\\courses.json");
+        Course c = new Course("2222","math","lablace","10940");
+        Lesson l = new Lesson("4444","lesson1","lablace1");
+        l.addResources("resourse");
+        c.addLesson(l);
+        c1.createCourse(c);
     }
 }
 

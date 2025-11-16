@@ -1,27 +1,36 @@
 [
   {
-    "courseId": "C101",
-    "title": "Java Programming",
-    "description": "Learn Java from basics to advanced.",
-    "instructorId": "I1001",
+    "courseId": "C001",
+    "title": "Java Basics",
+    "description": "Learn Java programming fundamentals",
+    "instructorId": "INS001",
     "lessons": [
       {
-        "lessonId": "L1",
-        "title": "Introduction to Java",
-        "content": "What is Java, history, features, and installation steps."
+        "lessonId": "L001",
+        "title": "Introduction",
+        "content": "Welcome to Java course"
       },
       {
-        "lessonId": "L2",
-        "title": "Variables and Data Types",
-        "content": "Understanding primitive types, variables, and naming rules."
-      },
-      {
-        "lessonId": "L3",
-        "title": "Control Statements",
-        "content": "If-else, switch, loops (for, while, do-while)."
+        "lessonId": "L002",
+        "title": "Variables",
+        "content": "Learn about variables in Java"
       }
     ],
-    "students": []
+    "students": ["STU001", "STU002"]
+  },
+  {
+    "courseId": "C002",
+    "title": "Web Development",
+    "description": "Build websites with HTML and CSS",
+    "instructorId": "INS002",
+    "lessons": [
+      {
+        "lessonId": "L001",
+        "title": "HTML Basics",
+        "content": "Learn HTML tags"
+      }
+    ],
+    "students": ["STU001"]
   }
 ]
 
