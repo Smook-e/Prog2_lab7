@@ -7,6 +7,7 @@ package JSON;
 import Courses.Course;
 import Courses.Lesson;
 import Users.Instructor;
+import java.util.ArrayList;
 
 /**
  *
@@ -54,7 +55,7 @@ public class InstructorManagment {
         {
             return false;
         }
-        return courseService.updateLesson(courseId,lessonId,lesson);s
+        return courseService.updateLesson(courseId,lessonId,lesson);
     }
     public boolean deleteLesson(Instructor instructor,String courseId,String lessonId)
     {
@@ -64,7 +65,10 @@ public class InstructorManagment {
         }
         return courseService.deleteLesson(courseId, lessonId);
     }
-    public 
+    public ArrayList<String> viewStudentsProgress(String courseId)
+    {
+        return courseService.getEnrolledStudents(courseId);
+    }
     
    }
     
