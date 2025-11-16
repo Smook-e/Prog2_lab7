@@ -6,6 +6,9 @@ package FrontEnd;
 
 import JSON.InstructorManagment;
 import Users.Instructor;
+import Users.Student;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,14 +21,31 @@ public class ViewStudentsProgress extends javax.swing.JFrame {
      */
     private InstructorManagment instructorManagment;
     private Instructor instructor;
-    public ViewStudentsProgress(InstructorManagment instructorManagment,Instructor instructor) {
+    private String courseId;
+    public ViewStudentsProgress(InstructorManagment instructorManagment,Instructor instructor,String courseId) {
         initComponents();
         this.instructorManagment=instructorManagment;
         this.instructor=instructor;
+        this.courseId=courseId;
         studentProgress();
     }
     private void studentProgress()
     {
+        ArrayList<String> studentsIds=instructorManagment.getCourseService().getEnrolledStudents(courseId);
+        DefaultTableModel model=new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Name");
+        model.addColumn("Completed Lessons");
+        for(String studentId : studentIds)
+        {
+            Student s= instructorManagment.getCourseService().getStudentById(studentId);
+            if(s=!null)
+            {
+                int complete= s.get
+            }
+        }
+        
+        
         
     }
 
