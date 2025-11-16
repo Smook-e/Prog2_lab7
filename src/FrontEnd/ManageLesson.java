@@ -4,6 +4,12 @@
  */
 package FrontEnd;
 
+import Courses.Lesson;
+import JSON.InstructorManagment;
+import Users.Instructor;
+import java.util.List;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author HP
@@ -13,8 +19,25 @@ public class ManageLesson extends javax.swing.JFrame {
     /**
      * Creates new form ManageLesson
      */
-    public ManageLesson() {
+    private InstructorManagment instructorManagment;
+    private Instructor instructor;
+    private String courseId;
+    public ManageLesson(InstructorManagment instructorManagment,Instructor instructor,String courseId) {
         initComponents();
+        this.instructorManagment=instructorManagment;
+        this.instructor=instructor;
+        this.courseId=courseId;
+        lessonList();
+    }
+    private void lessonList()
+    {
+        DefaultListModel<String> model= new DefaultListModel<>();
+        List<Lesson>lessons=instructorManagment.getCourseService().getLessons(courseId);
+        for(Lesson lesson:lessons)
+        {
+            model.addElement(lesson.getTitle()+" "+lesson.getLessonId());
+        }
+        jList1.setModel(model);
     }
 
     /**
@@ -126,37 +149,7 @@ public class ManageLesson extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageLesson.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageLesson.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageLesson.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageLesson.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManageLesson().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
