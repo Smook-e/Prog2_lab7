@@ -4,10 +4,12 @@
  */
 package FrontEnd;
 
+import JSON.CourseService;
 import JSON.InstructorManagment;
 import Users.Instructor;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,16 +22,21 @@ public class InstructorDashboard extends javax.swing.JFrame {
      */
     private InstructorManagment instructorManagment;
     private Instructor instructor;
-    DefaultListModel<String> listModel=new DefaultListModel<>();
-    public InstructorDashboard() {
+    public InstructorDashboard(InstructorManagment instructorManagment,Instructor instructor) 
+    {
         initComponents();
-        jList1.setModel(listModel);
+        this.instructorManagment=instructorManagment;
+        this.instructor=instructor;
         courseList();
     }
     private void courseList()
-    {
-        jList1=new JList<>(listModel);
-        jScrollPane1.setViewportView(jList1);
+    {   
+        DefaultListModel<String> model=new DefaultListModel<>();
+        for(String courseId:instructor.getCreatedCourses())
+        {
+            model.addElement(courseId);
+        }
+        jList1.setModel(model);
     }
 
     /**
@@ -70,6 +77,11 @@ public class InstructorDashboard extends javax.swing.JFrame {
 
         button3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         button3.setLabel("Delete Course");
+        button3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button3ActionPerformed(evt);
+            }
+        });
 
         button4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         button4.setLabel("Manage Lessons");
@@ -146,13 +158,32 @@ public class InstructorDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        instructorManagment.createCourse(instructor, courseId, title, description);
-        courseList();
+        CreateCourse createCourse = new CreateCourse(instructorManagment,instructorManagment.getCourseService(), instructor);
+        createCourse.setVisible(true);
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_button6ActionPerformed
+
+    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
+        String selected=jList1.getSelectedValue();
+        if(selected==null)
+        {
+            JOptionPane.showMessageDialog(this,"Select a course.");
+            return;
+        }
+        boolean done=instructorManagment.deleteCourse(instructor, selected);
+        if(done)
+        {
+            JOptionPane.showMessageDialog(this,"Course deleted successfully.");
+            courseList();
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"Failed to delete course.");
+        }
+        
+    }//GEN-LAST:event_button3ActionPerformed
 
     /**
      * @param args the command line arguments
