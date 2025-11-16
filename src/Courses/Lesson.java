@@ -13,6 +13,7 @@ public class Lesson {
         this.lessonId = lessonId;
         this.title = title;
         this.content = content;
+        this.Resources = new ArrayList<>();
     }
     
     public String getLessonId() {

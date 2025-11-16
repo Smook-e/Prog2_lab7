@@ -19,8 +19,8 @@ public class SignInApp {
 
     static {
         try {
-            users = new UserService("src\\JSON\\users.json");
-            courseService = new CourseService("src\\JSON\\courses.json");
+            users = new UserService("C:\\Users\\Mega Store\\Documents\\NetBeansProjects\\JavaProject7\\build\\classes\\JSON\\users.json");
+            courseService = new CourseService("C:\\Users\\Mega Store\\Documents\\NetBeansProjects\\JavaProject7\\build\\classes\\JSON\\courses.json");
             studentService = new StudentService(users, courseService);
         } catch (IOException e) {
             System.out.println("Error loading users!");
