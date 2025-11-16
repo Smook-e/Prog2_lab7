@@ -16,7 +16,10 @@
         "content": "Learn about variables in Java"
       }
     ],
-    "students": ["STU001", "STU002"]
+    "students": [
+      "10067",
+      "STU002"
+    ]
   },
   {
     "courseId": "C002",
@@ -30,7 +33,9 @@
         "content": "Learn HTML tags"
       }
     ],
-    "students": ["STU001"]
+    "students": [
+      "STU001",
+      "10067"
+    ]
   }
 ]
-

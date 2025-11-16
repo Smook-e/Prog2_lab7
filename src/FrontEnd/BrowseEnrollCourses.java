@@ -138,7 +138,11 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myCoursesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myCoursesBtnActionPerformed
-        
+        List<Course> list = studentService.getEnrolledCourses(student);
+        if(list.isEmpty()){
+            JOptionPane.showMessageDialog(this, "You are not enrolled in any course.");
+            return;
+        }
         EnrolledOnlyCoursesFrame e =  new EnrolledOnlyCoursesFrame(student, studentService, courseService);
         e.setVisible(true);
         e.setLocationRelativeTo(null);
@@ -156,10 +160,11 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
         }
 
         String courseId = coursesTable.getValueAt(row, 0).toString();
+        boolean studentEnrolled =  courseService.enrollStudent(courseId,student.getUserID());
 
         boolean ok = student.enrollCourse(courseId);
 
-        if (ok) {
+        if (studentEnrolled) {
             studentService.enrollStudentInCourse(student, courseId); // <--- ENSURE SAVE
             JOptionPane.showMessageDialog(this, "Enrolled successfully!");
         } else {
