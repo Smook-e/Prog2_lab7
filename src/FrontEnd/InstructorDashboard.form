@@ -140,6 +140,9 @@
         </Property>
         <Property name="label" type="java.lang.String" value="View Students Progress"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button5ActionPerformed"/>
+      </Events>
     </Component>
     <Container class="java.awt.ScrollPane" name="scrollPane1">
 

@@ -15,9 +15,11 @@ import java.util.ArrayList;
  */
 public class InstructorManagment {
     private CourseService courseService;
-    public InstructorManagment(CourseService courseService)
+    private StudentService studentService;
+    public InstructorManagment(CourseService courseService,StudentService studentService)
     {
         this.courseService=courseService;
+        this.studentService=studentService[;]
     }
     
     public boolean createCourse(Instructor instructor,String courseId,String title,String description)
@@ -80,6 +82,10 @@ public class InstructorManagment {
     public CourseService getCourseService()
     {
         return courseService;
+    }
+    public StudentService getStudentService()
+    {
+        return StudentService;
     }
     
    }

@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FrontEnd;
-
 import JSON.InstructorManagment;
 import Users.Instructor;
 import javax.swing.JOptionPane;
@@ -21,10 +20,11 @@ public class CreateLesson extends javax.swing.JFrame {
     private Instructor instructor;
     private String courseId;
     public CreateLesson(InstructorManagment instructorManagment,Instructor instructor, String courseId) {
-        initComponents();
+       
         this.instructorManagment=instructorManagment;
         this.instructor=instructor;
         this.courseId=courseId;
+        initComponents();
     }
 
     /**

@@ -26,10 +26,11 @@ public class CreateCourse extends javax.swing.JFrame {
     Instructor instructor;
     
     public CreateCourse(InstructorManagment instructorManagment,CourseService courseService,Instructor instructor) {
-        initComponents();
+        
         this.courseService=courseService;
         this.instructorManagment=instructorManagment;
         this.instructor=instructor;
+        initComponents();
     }
 
     /**

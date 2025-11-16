@@ -4,7 +4,11 @@
  */
 package FrontEnd;
 
+import Courses.Course;
+import Courses.Lesson;
+import JSON.CourseService;
 import JSON.InstructorManagment;
+import JSON.StudentService;
 import Users.Instructor;
 import Users.Student;
 import java.util.ArrayList;
@@ -19,30 +23,30 @@ public class ViewStudentsProgress extends javax.swing.JFrame {
     /**
      * Creates new form ViewStudentsProgress
      */
-    private InstructorManagment instructorManagment;
-    private Instructor instructor;
+    private CourseService courseService;
+    private StudentService studentService;
     private String courseId;
-    public ViewStudentsProgress(InstructorManagment instructorManagment,Instructor instructor,String courseId) {
-        initComponents();
-        this.instructorManagment=instructorManagment;
-        this.instructor=instructor;
+    
+    public ViewStudentsProgress(CourseService courseService,StudentService studentService, String courseId) {
+        this.courseService= courseService;
+        this.studentService=studentService;
         this.courseId=courseId;
+        initComponents();
         studentProgress();
     }
     private void studentProgress()
-    {
-        ArrayList<String> studentsIds=instructorManagment.getCourseService().getEnrolledStudents(courseId);
+    {   
+        Course course=courseService.getCourseById(courseId);
+        ArrayList<Student> students=course.getStudents();
+        ArrayList<Lesson> lessons=course.getLessons();
+        int numlessons=(lessons!=null)?lessons.size():0;
         DefaultTableModel model=new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Name");
         model.addColumn("Completed Lessons");
-        for(String studentId : studentIds)
-        {
-            Student s= instructorManagment.getCourseService().getStudentById(studentId);
-            if(s=!null)
-            {
-                int complete= s.get
-            }
+        for(String studentId : students)
+        {   
+           
         }
         
         

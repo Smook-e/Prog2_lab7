@@ -23,11 +23,12 @@ public class EditLesson extends javax.swing.JFrame {
     private String courseId;
     private String lessonId;
     public EditLesson(InstructorManagment instructorManagment,Instructor instructor,String courseId,String lessonId) {
-        initComponents();
+        
         this.instructorManagment =instructorManagment;
         this.instructor =instructor;
         this.courseId= courseId;
         this.lessonId= lessonId;
+        initComponents();
         
     }
 

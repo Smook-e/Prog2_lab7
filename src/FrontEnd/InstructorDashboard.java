@@ -4,9 +4,10 @@
  */
 package FrontEnd;
 
-import Courses.Course;
+import JSON.Course;
 import JSON.CourseService;
 import JSON.InstructorManagment;
+import JSON.StudentService;
 import Users.Instructor;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -25,9 +26,10 @@ public class InstructorDashboard extends javax.swing.JFrame {
     private Instructor instructor;
     public InstructorDashboard(InstructorManagment instructorManagment,Instructor instructor) 
     {
-        initComponents();
+        
         this.instructorManagment=instructorManagment;
         this.instructor=instructor;
+        initComponents();
         courseList();
     }
     private void courseList()
@@ -99,6 +101,11 @@ public class InstructorDashboard extends javax.swing.JFrame {
 
         button5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         button5.setLabel("View Students Progress");
+        button5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button5ActionPerformed(evt);
+            }
+        });
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -216,6 +223,16 @@ public class InstructorDashboard extends javax.swing.JFrame {
         ManageLesson manageLesson= new ManageLesson(instructorManagment,instructor,jList1.getSelectedValue());
         manageLesson.setVisible(true);
     }//GEN-LAST:event_button4ActionPerformed
+
+    private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
+        String selected=jList1.getSelectedValue();
+        if(selected==null)
+        {
+            JOptionPane.showMessageDialog(this,"Select a course.");
+            return;
+        }
+        new ViewStudentsProgress(instructorManagment.getCourseService(),instructorManagment.getStudentService(),selected).setVisible(true);
+    }//GEN-LAST:event_button5ActionPerformed
 
     /**
      * @param args the command line arguments
