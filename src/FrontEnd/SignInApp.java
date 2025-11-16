@@ -35,7 +35,7 @@ public class SignInApp {
     }
 
     // ===================== SIGN IN WINDOW =====================
-   public static void showSignInWindow() {
+    private static void showSignInWindow() {
         JFrame frame = new JFrame("Sign In");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 250);

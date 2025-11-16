@@ -1,6 +1,5 @@
 [
   {
-<<<<<<< HEAD
     "courseId": "C001",
     "title": "Java Basics",
     "description": "Learn Java programming fundamentals",
@@ -40,13 +39,3 @@
     ]
   }
 ]
-=======
-    "courseId": "C101",
-    "title": "Java Programming",
-    "description": "Learn Java from basics to advanced.",
-    "instructorId": "I1001",
-    "lessons": [],
-    "students": []
-  }
-]
->>>>>>> d4b3aa058ed2d4441e6597ea52466355dd1189fc
