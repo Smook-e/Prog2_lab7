@@ -54,17 +54,11 @@ public class EditLesson extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Lesson ID:");
 
-        jTextField1.setText("jTextField1");
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Lesson Title:");
 
-        jTextField2.setText("jTextField2");
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Lesson Content:");
-
-        jTextField3.setText("jTextField3");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("save");
@@ -137,7 +131,7 @@ public class EditLesson extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Failed to update lesson!");
             return;
         }
-        InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor,studentService);
+        InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor);
         d.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

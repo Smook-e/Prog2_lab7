@@ -24,14 +24,19 @@ public class ViewStudentsProgress extends javax.swing.JFrame {
     /**
      * Creates new form ViewStudentsProgress
      */
+    private InstructorManagment instructorManagment;
+    private Instructor instructor;
     private CourseService courseService;
     private StudentService studentService;
     private String courseId;
     
-    public ViewStudentsProgress(CourseService courseService,StudentService studentService, String courseId) {
+    
+    public ViewStudentsProgress(InstructorManagment instructorManagment,Instructor instructor,CourseService courseService,StudentService studentService, String courseId) {
         this.courseService= courseService;
         this.studentService=studentService;
         this.courseId=courseId;
+        this.instructorManagment= instructorManagment;
+        this.instructor =instructor;
         initComponents();
         studentProgress();
     }
@@ -40,7 +45,6 @@ public class ViewStudentsProgress extends javax.swing.JFrame {
         DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
         model.setRowCount(0);
         ArrayList<String> students=courseService.getEnrolledStudents(courseId);
-        
         model.addColumn("ID");
         model.addColumn("Name");
         model.addColumn("Completed Lessons");
@@ -95,6 +99,11 @@ public class ViewStudentsProgress extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,6 +136,12 @@ public class ViewStudentsProgress extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor);
+        d.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

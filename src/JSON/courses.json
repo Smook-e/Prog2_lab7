@@ -22,6 +22,21 @@
       }
     ],
     "students": []
-  }
+  },
+  {
+    "courseId": "9330",
+    "title": "inst001",
+    "description": "java",
+    "instructorId": "learning about java",
+    "lessons": [],
+    "students": []
+  },
+  {
+  "courseId": "T001",
+  "title": "Test Course",
+  "description": "Testing instructor dashboard",
+  "instructorId": "10940",
+  "lessons": [],
+  "students": []
+}
 ]
-
