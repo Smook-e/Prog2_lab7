@@ -157,6 +157,7 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
         boolean ok = student.enrollCourse(courseId);
 
         if (ok) {
+            studentService.enrollStudentInCourse(student, courseId); 
             JOptionPane.showMessageDialog(this, "Enrolled successfully!");
         } else {
             JOptionPane.showMessageDialog(this, "Already enrolled.");
