@@ -148,6 +148,7 @@ private Student student;
 
     private void backBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn1ActionPerformed
         // TODO add your handling code here:
+       new BrowseEnrollCourses(student, studentService, courseService).setVisible(true);
     }//GEN-LAST:event_backBtn1ActionPerformed
 
     /**
