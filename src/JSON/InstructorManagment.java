@@ -48,7 +48,14 @@ public class InstructorManagment {
         }
         return courseService.addLesson(courseId, lesson);
     }
-    
+    public boolean editLesson(Instructor instructor,String courseId,Lesson lesson,String lessonId)
+    {
+        if(!instructor.getCreatedCourses().contains(courseId))
+        {
+            return false;
+        }
+        return courseService.updateLesson(courseId,lessonId,lesson);s
+    }
     
    }
     
