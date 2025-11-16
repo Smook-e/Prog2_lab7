@@ -20,9 +20,11 @@ public class InstructorManagment {
         this.courseService=courseService;
     }
     
-    public boolean createCourse(Instructor instructor,Course course)
+    public boolean createCourse(Instructor instructor,String courseId,String title,String description)
     {
-       return courseService.createCourse(course);
+      
+        Course course = new Course(courseId,title,description);
+        return courseService.createCourse(course);
        
     }
     public boolean updateCourse(Instructor instructor,Course course)
@@ -41,12 +43,13 @@ public class InstructorManagment {
         }
         return courseService.deleteCourse(courseId);
     }
-    public boolean createLesson(Instructor instructor,String courseId,Lesson lesson)
+    public boolean createLesson(Instructor instructor,String courseId,String lessonId,String content)
     {
         if(!instructor.getCreatedCourses().contains(courseId))
         {
             return false;
         }
+        Lesson lesson=new Lesson(lessonId,content);
         return courseService.addLesson(courseId, lesson);
     }
     public boolean editLesson(Instructor instructor,String courseId,Lesson lesson,String lessonId)
