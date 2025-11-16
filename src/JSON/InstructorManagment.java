@@ -40,7 +40,16 @@ public class InstructorManagment {
         }
         return courseService.deleteCourse(courseId);
     }
-    
+    public boolean createLesson(Instructor instructor,String courseId,Lesson lesson)
+    {
+        if(!instructor.getCreatedCourses().contains(courseId))
+        {
+            return false;
+        }
+        return courseService.addLesson(courseId, lesson);
     }
     
-}
+    
+   }
+    
+
