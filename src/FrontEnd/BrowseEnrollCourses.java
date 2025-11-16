@@ -171,6 +171,23 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
 
     private void browseBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtn1ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) coursesTable.getModel();
+        model.setRowCount(0);
+
+        List<Course> courses = studentService.browseCourses();
+
+        if (courses == null || courses.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No courses available.");
+            return;
+        }
+
+        for (Course c : courses) {
+            model.addRow(new Object[]{
+                c.getCourseId(),
+                c.getTitle()
+            });
+        }
+
     }//GEN-LAST:event_browseBtn1ActionPerformed
 
     /**
