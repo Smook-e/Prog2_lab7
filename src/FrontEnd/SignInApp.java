@@ -50,7 +50,11 @@ public class SignInApp {
         panel.add(passField);
         panel.add(signInBtn);
         panel.add(registerBtn);
-
+        passField.addActionListener(e -> {
+            String username = userField.getText().trim();
+            String password = new String(passField.getPassword());
+            handleSignIn(username, password, frame);
+        });
         signInBtn.addActionListener(e -> handleSignIn(userField.getText().trim(), new String(passField.getPassword()), frame));
         registerBtn.addActionListener(e -> showRegisterWindow(frame));
 
