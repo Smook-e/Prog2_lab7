@@ -56,6 +56,15 @@ public class InstructorManagment {
         }
         return courseService.updateLesson(courseId,lessonId,lesson);s
     }
+    public boolean deleteLesson(Instructor instructor,String courseId,String lessonId)
+    {
+        if(!instructor.getCreatedCourses().contains(courseId))
+        {
+            return false;
+        }
+        return courseService.deleteLesson(courseId, lessonId);
+    }
+    public 
     
    }
     
