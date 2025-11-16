@@ -4,15 +4,43 @@
  */
 package JSON;
 
+import Courses.Course;
+import Courses.Lesson;
+import Users.Instructor;
+
 /**
  *
  * @author HP
  */
 public class InstructorManagment {
-    public boolean createCourse(String instructorId,String title,String description)
+    private CourseService courseService;
+    public InstructorManagment(CourseService courseService)
     {
-        Course c = new Course(instructorId,title,description);
-        
+        this.courseService=courseService;
+    }
+    
+    public boolean createCourse(Instructor instructor,Course course)
+    {
+       return courseService.createCourse(course);
+       
+    }
+    public boolean updateCourse(Instructor instructor,Course course)
+    {
+        if(!course.getInstructorId().equals(instructor.getUserID()))
+        {
+            return false;
+        }
+        return courseService.updateCourse(course);
+    }
+    public boolean deleteCourse(Instructor instructor,String courseId)
+    {
+        if(!instructor.getCreatedCourses().contains(courseId))
+        {
+            return false;
+        }
+        return courseService.deleteCourse(courseId);
+    }
+    
     }
     
 }
