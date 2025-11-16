@@ -9,6 +9,7 @@ import JSON.InstructorManagment;
 import Users.Instructor;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,10 +36,11 @@ public class ManageLesson extends javax.swing.JFrame {
         List<Lesson>lessons=instructorManagment.getCourseService().getLessons(courseId);
         for(Lesson lesson:lessons)
         {
-            model.addElement(lesson.getTitle()+" "+lesson.getLessonId());
+            model.addElement(lesson.getLessonId());
         }
         jList1.setModel(model);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,9 +67,19 @@ public class ManageLesson extends javax.swing.JFrame {
 
         button1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         button1.setLabel("Create Lesson");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
 
         button2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         button2.setLabel("Edit Lesson");
+        button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button2ActionPerformed(evt);
+            }
+        });
 
         button3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         button3.setLabel("Delete Lesson");
@@ -139,12 +151,44 @@ public class ManageLesson extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
-        // TODO add your handling code here:
+        String selected=jList1.getSelectedValue();
+         if(selected==null)
+       {
+           JOptionPane.showMessageDialog(this,"Select a lesson.");
+           return;
+       }
+       boolean done=instructorManagment.deleteLesson(instructor, courseId, selected);
+       if(done)
+       {
+           JOptionPane.showMessageDialog(this,"Lesson deleted successfully.");
+           lessonList();
+       }
+       else
+       {
+           JOptionPane.showMessageDialog(this,"Failed to delete lesson!");
+       }
     }//GEN-LAST:event_button3ActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
-        // TODO add your handling code here:
+        InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor);
+        d.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_button4ActionPerformed
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        CreateLesson createLesson=new CreateLesson(instructorManagment,instructor,courseId);
+        createLesson.setVisible(true);
+    }//GEN-LAST:event_button1ActionPerformed
+
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+       String selected =jList1.getSelectedValue();
+       if(selected==null)
+       {
+           JOptionPane.showMessageDialog(this,"Select a lesson.");
+           return;
+       }
+       new EditLesson(instructorManagment,instructor,courseId,selected).setVisible(true);   
+    }//GEN-LAST:event_button2ActionPerformed
 
     /**
      * @param args the command line arguments

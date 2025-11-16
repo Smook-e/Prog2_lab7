@@ -21,10 +21,12 @@ public class EditCourse extends javax.swing.JFrame {
      */
     private InstructorManagment instructorManagment;
     private Instructor instructor;
-    public EditCourse(InstructorManagment instructorManagment,Instructor instructor) {
+    private String courseId;
+    public EditCourse(InstructorManagment instructorManagment,Instructor instructor,String courseId) {
         initComponents();
         this.instructorManagment=instructorManagment;
         this.instructor=instructor;
+        this.courseId=courseId;
     }
 
     /**
@@ -130,7 +132,6 @@ public class EditCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String courseId=jTextField1.getText().trim();
         String title=jTextField2.getText().trim();
         String description=jTextField3.getText().trim();
         if(courseId.isEmpty()||title.isEmpty()||description.isEmpty())
@@ -150,12 +151,15 @@ public class EditCourse extends javax.swing.JFrame {
         if(done)
         {
             JOptionPane.showMessageDialog(this, "Course updated succesfully.");
-            this.dispose();
         }
         else 
         {
             JOptionPane.showMessageDialog(this, "Failed to update course");
+            return;
         }
+        InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor);
+        d.setVisible(true);
+        this.dispose();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

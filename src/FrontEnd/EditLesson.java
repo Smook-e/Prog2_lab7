@@ -130,12 +130,15 @@ public class EditLesson extends javax.swing.JFrame {
         if(done)
         {
             JOptionPane.showMessageDialog(this,"Lesson updated successfully.");
-            this.dispose();
         }
         else
         {
             JOptionPane.showMessageDialog(this,"Failed to update lesson!");
+            return;
         }
+        InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor);
+        d.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

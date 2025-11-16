@@ -203,8 +203,7 @@ public class InstructorDashboard extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Select a course.");
             return;
         }
-        Course course =instructorManagment.getCourseService().getCourseById(selected);
-        new EditCourse(instructorManagment,instructor).setVisible(true);
+        new EditCourse(instructorManagment,instructor,selected).setVisible(true);
     }//GEN-LAST:event_button2ActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
