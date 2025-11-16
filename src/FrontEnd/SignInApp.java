@@ -190,9 +190,8 @@ public class SignInApp {
             }
 
             // Open CourseManagementStudent frame
-            CourseManagementStudent cms = new CourseManagementStudent(s, studentService, courseService);
-            cms.setVisible(true);
-            cms.setLocationRelativeTo(null);
+            frame.dispose();
+            studentDashboard(s);
 
         } else {
             instructorDashboard();
@@ -205,7 +204,33 @@ public class SignInApp {
 
 
 
+    public static void studentDashboard(Student s) {
+        JFrame main = new JFrame("studentDashboard");
+        main.setSize(500, 400);
+        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        main.setLocationRelativeTo(null);
+        JPanel panel = new JPanel(new GridLayout(3, 1, 10, 15));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        JButton browseButton = new JButton("Browse Courses");
+        JButton signOutBtn = new JButton("Sign Out");
+        signOutBtn.addActionListener(e -> {
+            main.dispose();
+            showSignInWindow();
+        });
+        browseButton.addActionListener(e -> {
+            BrowseEnrollCourses b =    new BrowseEnrollCourses(s, studentService, courseService);
+            b.setVisible(true);
+            b.setLocationRelativeTo(null);
+            main.dispose();
 
+        });
+
+        panel.add(browseButton);
+        panel.add(new JLabel());
+        panel.add(signOutBtn);
+        main.add(panel);
+        main.setVisible(true);
+    }
     private static void instructorDashboard() {
         JFrame main = new JFrame("instructorDashboard");
         main.setSize(500, 400);

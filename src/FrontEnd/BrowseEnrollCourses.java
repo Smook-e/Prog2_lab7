@@ -173,7 +173,7 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
     }
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
-        new CourseManagementStudent(student, studentService, courseService).setVisible(true);
+        SignInApp.studentDashboard(student);
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
