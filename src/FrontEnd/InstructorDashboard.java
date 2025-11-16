@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -189,7 +190,13 @@ public class InstructorDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
-        // TODO add your handling code here:
+      int confirm = JOptionPane.showConfirmDialog(this,"Are you sure you want to logout?", "Logout",
+            JOptionPane.YES_NO_OPTION);
+
+    if (confirm == JOptionPane.YES_OPTION) {
+        this.dispose(); // close current frame
+        SignInApp.showSignInWindow(); 
+    }
     }//GEN-LAST:event_button6ActionPerformed
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
@@ -203,7 +210,9 @@ public class InstructorDashboard extends javax.swing.JFrame {
         if(done)
         {
             JOptionPane.showMessageDialog(this,"Course deleted successfully.");
-            courseList();
+            instructor.getCreatedCourses().remove(selected);
+            SwingUtilities.invokeLater(() -> courseList());
+            
         }
         else{
             JOptionPane.showMessageDialog(this,"Failed to delete course.");

@@ -26,7 +26,7 @@ public class InstructorManagment {
     public boolean createCourse(Instructor instructor,String courseId,String title,String description)
     {
       
-        Course course = new Course(courseId,instructor.getUserID(),title,description);
+        Course course = new Course(courseId,title,description,instructor.getUserID());
         boolean done=courseService.createCourse(course);
         if(done)
         {
@@ -87,6 +87,14 @@ public class InstructorManagment {
     public StudentService getStudentService()
     {
         return studentService;
+    }
+    public void setCourseService(CourseService courseService)
+    {
+        this.courseService=courseService;
+    }
+    public void setStudentService(StudentService studentService)
+    {
+        this.studentService=studentService;
     }
     
    }

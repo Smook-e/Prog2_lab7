@@ -10,8 +10,8 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        String path = "src\\JSON\\users.json";
-        JsonDatabaseManager<User> db = new JsonDatabaseManager(path);
+        String path = "C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Prog2_lab7\\src\\JSON\\users.json";
+        JsonDatabaseManager<User> db = new JsonDatabaseManager(path,);
         db.print();
         UserService a = new UserService("src\\JSON\\users.json");
         for(User u : a.getDb()) {
