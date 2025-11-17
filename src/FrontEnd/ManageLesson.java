@@ -173,12 +173,14 @@ public class ManageLesson extends javax.swing.JFrame {
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
         InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor);
         d.setVisible(true);
+        d.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_button4ActionPerformed
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         CreateLesson createLesson=new CreateLesson(instructorManagment,instructor,courseId);
         createLesson.setVisible(true);
+        createLesson.setLocationRelativeTo(null);
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
@@ -188,7 +190,9 @@ public class ManageLesson extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(this,"Select a lesson.");
            return;
        }
-       new EditLesson(instructorManagment,instructor,courseId,selected).setVisible(true);   
+      EditLesson e = new EditLesson(instructorManagment,instructor,courseId,selected);
+       e.setVisible(true);
+       e.setLocationRelativeTo(null);
     }//GEN-LAST:event_button2ActionPerformed
 
     /**
