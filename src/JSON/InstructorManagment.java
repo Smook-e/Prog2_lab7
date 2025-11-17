@@ -5,6 +5,7 @@
 package JSON;
 
 import Courses.Course;
+import JSON.StudentService;
 import Courses.Lesson;
 import Users.Instructor;
 import java.util.ArrayList;
@@ -15,15 +16,17 @@ import java.util.ArrayList;
  */
 public class InstructorManagment {
     private CourseService courseService;
-    public InstructorManagment(CourseService courseService)
+    private StudentService studentService;
+    public InstructorManagment(CourseService courseService,StudentService studentService)
     {
         this.courseService=courseService;
+        this.studentService=studentService;
     }
     
     public boolean createCourse(Instructor instructor,String courseId,String title,String description)
     {
       
-        Course course = new Course(courseId,instructor.getUserID(),title,description);
+        Course course = new Course(courseId,title,description,instructor.getUserID());
         boolean done=courseService.createCourse(course);
         if(done)
         {
@@ -80,6 +83,18 @@ public class InstructorManagment {
     public CourseService getCourseService()
     {
         return courseService;
+    }
+    public StudentService getStudentService()
+    {
+        return studentService;
+    }
+    public void setCourseService(CourseService courseService)
+    {
+        this.courseService=courseService;
+    }
+    public void setStudentService(StudentService studentService)
+    {
+        this.studentService=studentService;
     }
     
    }

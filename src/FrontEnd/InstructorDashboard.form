@@ -140,6 +140,9 @@
         </Property>
         <Property name="label" type="java.lang.String" value="View Students Progress"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button5ActionPerformed"/>
+      </Events>
     </Component>
     <Container class="java.awt.ScrollPane" name="scrollPane1">
 
@@ -174,7 +177,7 @@
     </Container>
     <Component class="java.awt.Button" name="button6">
       <Properties>
-        <Property name="label" type="java.lang.String" value="back"/>
+        <Property name="label" type="java.lang.String" value="Log Out"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button6ActionPerformed"/>

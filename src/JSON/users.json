@@ -40,5 +40,12 @@
     "userName": "instructor1",
     "role": "Instructor",
     "email": "ins@gmail.com"
+  },
+  {
+    "userID": "10856",
+    "password": "2e9cbd6e2552dbeab8aa6e4dba5d788a280d1773847edec2f4c3cbdc75ee8491",
+    "userName": "sara",
+    "role": "Instructor",
+    "email": "sara@email.com"
   }
 ]

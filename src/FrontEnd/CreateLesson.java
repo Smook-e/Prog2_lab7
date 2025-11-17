@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package FrontEnd;
-
 import JSON.InstructorManagment;
 import Users.Instructor;
 import javax.swing.JOptionPane;
@@ -21,10 +20,11 @@ public class CreateLesson extends javax.swing.JFrame {
     private Instructor instructor;
     private String courseId;
     public CreateLesson(InstructorManagment instructorManagment,Instructor instructor, String courseId) {
-        initComponents();
+       
         this.instructorManagment=instructorManagment;
         this.instructor=instructor;
         this.courseId=courseId;
+        initComponents();
     }
 
     /**
@@ -46,20 +46,14 @@ public class CreateLesson extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setText("jTextField1");
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Lesson ID:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Lesson Title:");
 
-        jTextField2.setText("jTextField2");
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Lesson Content:");
-
-        jTextField3.setText("jTextField3");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("save");

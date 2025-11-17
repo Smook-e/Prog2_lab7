@@ -1,41 +1,72 @@
 [
   {
-    "courseId": "C001",
-    "title": "Java Basics",
-    "description": "Learn Java programming fundamentals",
-    "instructorId": "INS001",
+    "courseId": "C101",
+    "title": "Java Programming",
+    "description": "Learn Java from basics to advanced.",
+    "instructorId": "I1001",
     "lessons": [
       {
-        "lessonId": "L001",
-        "title": "Introduction",
-        "content": "Welcome to Java course"
+        "lessonId": "L1",
+        "title": "Introduction to Java",
+        "content": "What is Java, history, features, and installation steps."
       },
       {
-        "lessonId": "L002",
-        "title": "Variables",
-        "content": "Learn about variables in Java"
+        "lessonId": "L2",
+        "title": "Variables and Data Types",
+        "content": "Understanding primitive types, variables, and naming rules."
+      },
+      {
+        "lessonId": "L3",
+        "title": "Control Statements",
+        "content": "If-else, switch, loops (for, while, do-while)."
       }
     ],
-    "students": [
-      "10067",
-      "STU002"
-    ]
+    "students": []
   },
   {
-    "courseId": "C002",
-    "title": "Web Development",
-    "description": "Build websites with HTML and CSS",
-    "instructorId": "INS002",
+    "courseId": "9330",
+    "title": "inst001",
+    "description": "java",
+    "instructorId": "learning about java",
+    "lessons": [],
+    "students": []
+  },
+  {
+    "courseId": "T001",
+    "title": "Test Course",
+    "description": "Testing instructor dashboard",
+    "instructorId": "10940",
+    "lessons": [],
+    "students": []
+  },
+  {
+    "courseId": "1000",
+    "title": "english",
+    "description": "learn english",
+    "instructorId": "10856",
+    "lessons": [],
+    "students": []
+  },
+  {
+    "courseId": "2000",
+    "title": "french",
+    "description": "learn french",
+    "instructorId": "10856",
+    "lessons": [],
+    "students": []
+  },
+  {
+    "courseId": "1001",
+    "title": "arabic",
+    "description": "learn arabic",
+    "instructorId": "10856",
     "lessons": [
       {
-        "lessonId": "L001",
-        "title": "HTML Basics",
-        "content": "Learn HTML tags"
+        "lessonId": "2001",
+        "title": "grammer",
+        "content": "learn grammer"
       }
     ],
-    "students": [
-      "STU001",
-      "10067"
-    ]
+    "students": []
   }
 ]

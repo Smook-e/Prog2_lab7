@@ -26,10 +26,11 @@ public class CreateCourse extends javax.swing.JFrame {
     Instructor instructor;
     
     public CreateCourse(InstructorManagment instructorManagment,CourseService courseService,Instructor instructor) {
-        initComponents();
+        
         this.courseService=courseService;
         this.instructorManagment=instructorManagment;
         this.instructor=instructor;
+        initComponents();
     }
 
     /**
@@ -51,10 +52,6 @@ public class CreateCourse extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
         button1.setLabel("save");
         button1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +68,6 @@ public class CreateCourse extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Course ID:");
 
-        jTextField3.setText("jTextField3");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);

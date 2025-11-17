@@ -24,10 +24,11 @@ public class ManageLesson extends javax.swing.JFrame {
     private Instructor instructor;
     private String courseId;
     public ManageLesson(InstructorManagment instructorManagment,Instructor instructor,String courseId) {
-        initComponents();
+        
         this.instructorManagment=instructorManagment;
         this.instructor=instructor;
         this.courseId=courseId;
+        initComponents();
         lessonList();
     }
     private void lessonList()

@@ -39,9 +39,12 @@ private Student student;
         DefaultTableModel model = (DefaultTableModel) enrolledTable.getModel();
         model.setRowCount(0);
 
-        List<Course> list = courseService.getEnrolledCourses(student.getUserID());
+        List<Course> list = studentService.getEnrolledCourses(student);
 
-
+        if (list.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "You are not enrolled in any course.");
+            return;
+        }
 
         for (Course c : list) {
             model.addRow(new Object[]{c.getCourseId(), c.getTitle()});

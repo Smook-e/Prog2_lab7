@@ -1,8 +1,14 @@
 package FrontEnd;
+import FrontEnd.CourseManagementStudent;
+import FrontEnd.InstructorDashboard;
+import JSON.StudentService;
+import JSON.CourseService;
+import JSON.InstructorManagment;
 import JSON.StudentService;
 import JSON.CourseService;
 import Users.Student;
 import JSON.UserService;
+import Users.Instructor;
 import Users.User;
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +17,9 @@ import java.nio.file.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
+import FrontEnd.InstructorDashboard;
+
+
 
 public class SignInApp {
     static UserService users;
@@ -35,7 +44,7 @@ public class SignInApp {
     }
 
     // ===================== SIGN IN WINDOW =====================
-    private static void showSignInWindow() {
+    public static void showSignInWindow() {
         JFrame frame = new JFrame("Sign In");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 250);
@@ -188,6 +197,26 @@ public class SignInApp {
                 s = new Student(u.getUserID(), u.getUserName(), u.getEmail(), u.getPassword());
                 s.setStudentService(studentService);
             }
+            CourseManagementStudent cms = new CourseManagementStudent(s, studentService, courseService);
+            cms.setVisible(true);
+            cms.setLocationRelativeTo(null);
+
+        } else if (u.getRole().equalsIgnoreCase("Instructor")) {
+            Instructor inst;
+if (u instanceof Instructor) {
+    inst = (Instructor) u;
+} else {
+    inst = new Instructor(u.getUserID(), u.getUserName(), u.getEmail(), u.getPassword());
+}
+
+
+InstructorManagment instructorManagment=new InstructorManagment(courseService, studentService);
+inst.setInstructorManagment(instructorManagment);
+
+
+InstructorDashboard dashboard = new InstructorDashboard(instructorManagment,inst);
+dashboard.setVisible(true);
+dashboard.setLocationRelativeTo(null);
 
             // Open CourseManagementStudent frame
             frame.dispose();
@@ -231,7 +260,14 @@ public class SignInApp {
         main.add(panel);
         main.setVisible(true);
     }
-    private static void instructorDashboard() {
+}
+
+
+
+
+
+
+  /*  private static void instructorDashboard() {
         JFrame main = new JFrame("instructorDashboard");
         main.setSize(500, 400);
         main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -252,7 +288,7 @@ public class SignInApp {
         panel.add(signOutBtn);
         main.add(panel);
         main.setVisible(true);
-    }
+    }*/
 
     // ===================== VALIDATION =====================
     private static boolean validateLogin(String username, String password) {
@@ -263,8 +299,8 @@ public class SignInApp {
                 return true;
             }
         }
-        return false;
-    }
+        return false;   }
+ 
 
     private static boolean usernameExists(String username) {
         return users.getDb().stream().anyMatch(u -> u.getUserName().equals(username));
