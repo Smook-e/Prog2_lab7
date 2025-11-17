@@ -53,7 +53,7 @@ public class InstructorManagment {
     }
     public boolean createLesson(Instructor instructor,String courseId,String lessonId,String title,String content)
     {
-        if(!instructor.getCreatedCourses().contains(courseId))
+        if(!getCoursesByInstructor(instructor.getUserID()).contains(courseService.getCourseById(courseId)))
         {
             return false;
         }

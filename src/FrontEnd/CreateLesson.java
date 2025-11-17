@@ -124,8 +124,8 @@ public class CreateLesson extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Failed to create lesson!");
             return;
         }
-         InstructorDashboard d=new InstructorDashboard(instructorManagment,instructor);
-        d.setVisible(true);
+
+
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
