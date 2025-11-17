@@ -37,28 +37,30 @@ public LessonManagement(Student student, StudentService studentService, CourseSe
     setupTable();
     loadLessons();
 }
+
 private void setupTable() {
     DefaultTableModel model = new DefaultTableModel(
             new String[]{"Lesson ID", "Title", "Completed"}, 0
     );
     lessonsTable.setModel(model);
 }
-private void loadLessons() {
-    DefaultTableModel model = (DefaultTableModel) lessonsTable.getModel();
-    model.setRowCount(0);
+    private void loadLessons() {
+        DefaultTableModel model = (DefaultTableModel) lessonsTable.getModel();
+        model.setRowCount(0);
 
-    List<Lesson> lessons = studentService.getLessonsForCourse(courseId);
-    List<String> completed = student.getProgress().getOrDefault(courseId, new ArrayList<>());
+        List<Lesson> lessons = studentService.getLessonsForCourse(courseId);
+        List<String> completed = student.getProgress().getOrDefault(courseId, new ArrayList<>());
 
-    for (Lesson l : lessons) {
-        boolean check = completed.contains(l.getLessonId());
+        for (Lesson l : lessons) {
+            boolean isCompleted = completed.contains(l.getLessonId());
 
-        model.addRow(new Object[]{
-                l.getLessonId(),
-                l.getTitle(),
-        });
-    }
+            model.addRow(new Object[]{
+                            l.getLessonId(),
+                            l.getTitle(),
+                            isCompleted ? "Yes" : "No"
+                    });
 }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -127,7 +129,10 @@ private void loadLessons() {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
-            new EnrolledOnlyCoursesFrame(student, studentService, courseService).setVisible(true);
+       EnrolledOnlyCoursesFrame e =      new EnrolledOnlyCoursesFrame(student, studentService, courseService);
+       e.setVisible(true);
+       e.setLocationRelativeTo(null);
+        javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void markCompletedBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markCompletedBtnActionPerformed

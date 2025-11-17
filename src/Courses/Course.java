@@ -15,8 +15,8 @@ public class Course {
         this.title = title;
         this.description = description;
         this.instructorId = instructorId;
-        this.lessons=new ArrayList<>();
-        this.students=new ArrayList<>();
+        this.lessons = new ArrayList<>();
+        this.students = new ArrayList<>();
     }
 
     public String getCourseId() {

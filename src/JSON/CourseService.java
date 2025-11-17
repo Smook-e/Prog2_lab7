@@ -73,14 +73,20 @@ public class CourseService extends JsonDatabaseManager<Course> {
     
     public boolean enrollStudent(String courseId, String studentId) {
         Course course = getCourseById(courseId);
-        if(course != null) {
+        if(course != null && !courseHasStudent(courseId, studentId )) {
             course.enrollStudent(studentId);
             save();
             return true;
         }
         return false;
     }
-
+    public boolean courseHasStudent(String courseId, String studentId) {
+        Course course = getCourseById(courseId);
+        if(course.isStudentEnrolled(studentId)) {
+            return true;
+        }
+        return false;
+    }
     
     public ArrayList<Course> getEnrolledCourses(String studentId) {
         ArrayList<Course> result = new ArrayList<>();

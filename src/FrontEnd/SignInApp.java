@@ -4,6 +4,8 @@ import FrontEnd.InstructorDashboard;
 import JSON.StudentService;
 import JSON.CourseService;
 import JSON.InstructorManagment;
+import JSON.StudentService;
+import JSON.CourseService;
 import Users.Student;
 import JSON.UserService;
 import Users.Instructor;
@@ -26,8 +28,8 @@ public class SignInApp {
 
     static {
         try {
-            users = new UserService("C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Prog2_lab7\\src\\JSON\\users.json");
-            courseService = new CourseService("C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Prog2_lab7\\src\\JSON\\courses.json");
+            users = new UserService("src\\JSON\\users.json");
+            courseService = new CourseService("src\\JSON\\courses.json");
             studentService = new StudentService(users, courseService);
         } catch (IOException e) {
             System.out.println("Error loading users!");
@@ -63,7 +65,11 @@ public class SignInApp {
         panel.add(passField);
         panel.add(signInBtn);
         panel.add(registerBtn);
-
+        passField.addActionListener(e -> {
+            String username = userField.getText().trim();
+            String password = new String(passField.getPassword());
+            handleSignIn(username, password, frame);
+        });
         signInBtn.addActionListener(e -> handleSignIn(userField.getText().trim(), new String(passField.getPassword()), frame));
         registerBtn.addActionListener(e -> showRegisterWindow(frame));
 
@@ -183,6 +189,7 @@ public class SignInApp {
         User u = users.getUserByUsername(username);
 
         if (u.getRole().equalsIgnoreCase("Student")) {
+            // Option 2: safely create Student object if needed
             Student s;
             if (u instanceof Student) {
                 s = (Student) u;
@@ -211,12 +218,47 @@ InstructorDashboard dashboard = new InstructorDashboard(instructorManagment,inst
 dashboard.setVisible(true);
 dashboard.setLocationRelativeTo(null);
 
+            // Open CourseManagementStudent frame
+            frame.dispose();
+            studentDashboard(s);
+
         } else {
-            JOptionPane.showMessageDialog(frame, "Unknown role!", "Error", JOptionPane.ERROR_MESSAGE);
+            instructorDashboard();
         }
 
     } else {
         JOptionPane.showMessageDialog(frame, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
+
+    public static void studentDashboard(Student s) {
+        JFrame main = new JFrame("studentDashboard");
+        main.setSize(500, 400);
+        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        main.setLocationRelativeTo(null);
+        JPanel panel = new JPanel(new GridLayout(3, 1, 10, 15));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        JButton browseButton = new JButton("Browse Courses");
+        JButton signOutBtn = new JButton("Sign Out");
+        signOutBtn.addActionListener(e -> {
+            main.dispose();
+            showSignInWindow();
+        });
+        browseButton.addActionListener(e -> {
+            BrowseEnrollCourses b =    new BrowseEnrollCourses(s, studentService, courseService);
+            b.setVisible(true);
+            b.setLocationRelativeTo(null);
+            main.dispose();
+
+        });
+
+        panel.add(browseButton);
+        panel.add(new JLabel());
+        panel.add(signOutBtn);
+        main.add(panel);
+        main.setVisible(true);
     }
 }
 

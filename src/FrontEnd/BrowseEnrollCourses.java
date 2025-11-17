@@ -138,13 +138,20 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myCoursesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myCoursesBtnActionPerformed
-        
-         new EnrolledOnlyCoursesFrame(student, studentService, courseService).setVisible(true);
+        List<Course> list = courseService.getEnrolledCourses(student.getUserID());
+        if(list.isEmpty()){
+            JOptionPane.showMessageDialog(this, "You are not enrolled in any course.");
+            return;
+        }
+        EnrolledOnlyCoursesFrame e =  new EnrolledOnlyCoursesFrame(student, studentService, courseService);
+        e.setVisible(true);
+        e.setLocationRelativeTo(null);
+
     this.dispose();
     }//GEN-LAST:event_myCoursesBtnActionPerformed
 
     private void enrollBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollBtnActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
         int row = coursesTable.getSelectedRow();
 
         if (row == -1) {
@@ -153,20 +160,20 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
         }
 
         String courseId = coursesTable.getValueAt(row, 0).toString();
+        boolean studentEnrolled =  courseService.enrollStudent(courseId,student.getUserID());
 
         boolean ok = student.enrollCourse(courseId);
 
-        if (ok) {
-            studentService.enrollStudentInCourse(student, courseId); 
+        if (studentEnrolled) {
+            studentService.enrollStudentInCourse(student, courseId); // <--- ENSURE SAVE
             JOptionPane.showMessageDialog(this, "Enrolled successfully!");
         } else {
             JOptionPane.showMessageDialog(this, "Already enrolled.");
-        }
-    }//GEN-LAST:event_enrollBtnActionPerformed
-
+        }//GEN-LAST:event_enrollBtnActionPerformed
+    }
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
-        new CourseManagementStudent(student, studentService, courseService).setVisible(true);
+        SignInApp.studentDashboard(student);
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
@@ -183,6 +190,7 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
         }
 
         for (Course c : courses) {
+            System.out.println(c.getCourseId());
             model.addRow(new Object[]{
                 c.getCourseId(),
                 c.getTitle()

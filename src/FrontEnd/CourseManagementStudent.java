@@ -6,6 +6,9 @@ package FrontEnd;
 import JSON.CourseService;
 import JSON.StudentService;
 import Users.Student;
+
+import javax.swing.*;
+
 /**
  *
  * @author Mega Store
@@ -43,7 +46,7 @@ private CourseService courseService;
         jButton3 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-
+        JButton btn =  new javax.swing.JButton();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -94,12 +97,15 @@ private CourseService courseService;
                     .addContainerGap(379, Short.MAX_VALUE)))
         );
 
+        layout.addLayoutComponent(btn, java.awt.BorderLayout.PAGE_START);
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // code for browse and enroll
-            new BrowseEnrollCourses(student, studentService, courseService).setVisible(true);
+         BrowseEnrollCourses b =    new BrowseEnrollCourses(student, studentService, courseService);
+         b.setVisible(true);
+         b.setLocationRelativeTo(null);
     this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 

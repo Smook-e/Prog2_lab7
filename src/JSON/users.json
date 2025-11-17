@@ -1,35 +1,35 @@
 [
   {
-    "userID": "1",
-    "password": "abc",
-    "userName": "alice123",
+    "userID": "10067",
+    "password": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+    "userName": "alice",
     "role": "student",
     "email": "alice@example.com"
   },
   {
     "userID": "2",
-    "password": "abc",
+    "password": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
     "userName": "john123",
     "role": "student",
     "email": "john@example.com"
   },
   {
     "userID": "3",
-    "password": "abc",
+    "password": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
     "userName": "steve123",
     "role": "Instructor",
     "email": "steve@example.com"
   },
   {
     "userID": "10234",
-    "password": "abc",
+    "password": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
     "userName": "username5",
     "role": "Student",
     "email": "username5@gmail.com"
   },
   {
     "userID": "10813",
-    "password": "abc",
+    "password": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
     "userName": "username6",
     "role": "Instructor",
     "email": "username6@gmail.com"

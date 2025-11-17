@@ -8,7 +8,7 @@ import JSON.CourseService;
 import JSON.StudentService;
 import Users.Student;
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -141,14 +141,24 @@ private Student student;
 
    
     String courseId = enrolledTable.getValueAt(row, 0).toString();
-    new LessonManagement(student, studentService, courseService, courseId).setVisible(true);
+        JFrame frame = new JFrame("Lesson Management");
+        LessonManagement lessonPanel = new LessonManagement(student, studentService, courseService, courseId);
+
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.getContentPane().add(lessonPanel);
+        frame.pack(); // sizes the frame to fit the panel
+        frame.setLocationRelativeTo(null); // center on screen
+        frame.setVisible(true);
 
     this.dispose();
     }//GEN-LAST:event_viewLessonsBtnActionPerformed
 
     private void backBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtn1ActionPerformed
         // TODO add your handling code here:
-       new BrowseEnrollCourses(student, studentService, courseService).setVisible(true);
+      BrowseEnrollCourses b =  new BrowseEnrollCourses(student, studentService, courseService);
+      b.setVisible(true);
+      b.setLocationRelativeTo(null);
+      this.dispose();
     }//GEN-LAST:event_backBtn1ActionPerformed
 
     /**
