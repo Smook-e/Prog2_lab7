@@ -44,9 +44,9 @@ public class InstructorDashboard extends javax.swing.JFrame {
     private void courseList()
     {
         DefaultListModel<String> model=new DefaultListModel<>();
-        for(String courseId:instructor.getCreatedCourses())
+        for(Course course :instructorManagment.getCoursesByInstructor(instructor.getUserID()))
         {
-            model.addElement(courseId);
+            model.addElement(course.getCourseId());
         }
         jList1.setModel(model);
     }

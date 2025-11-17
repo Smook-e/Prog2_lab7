@@ -197,33 +197,32 @@ public class SignInApp {
                 s = new Student(u.getUserID(), u.getUserName(), u.getEmail(), u.getPassword());
                 s.setStudentService(studentService);
             }
-            CourseManagementStudent cms = new CourseManagementStudent(s, studentService, courseService);
-            cms.setVisible(true);
-            cms.setLocationRelativeTo(null);
+            studentDashboard(s);
+            frame.dispose();
 
         } else if (u.getRole().equalsIgnoreCase("Instructor")) {
             Instructor inst;
-if (u instanceof Instructor) {
-    inst = (Instructor) u;
-} else {
-    inst = new Instructor(u.getUserID(), u.getUserName(), u.getEmail(), u.getPassword());
-}
+            if (u instanceof Instructor) {
+                inst = (Instructor) u;
+            } else {
+                inst = new Instructor(u.getUserID(), u.getUserName(), u.getEmail(), u.getPassword());
+            }
 
 
-InstructorManagment instructorManagment=new InstructorManagment(courseService, studentService);
-inst.setInstructorManagment(instructorManagment);
+            InstructorManagment instructorManagment=new InstructorManagment(courseService, studentService);
+            inst.setInstructorManagment(instructorManagment);
 
 
-InstructorDashboard dashboard = new InstructorDashboard(instructorManagment,inst);
-dashboard.setVisible(true);
-dashboard.setLocationRelativeTo(null);
+            InstructorDashboard dashboard = new InstructorDashboard(instructorManagment,inst);
+            dashboard.setVisible(true);
+            dashboard.setLocationRelativeTo(null);
 
             // Open CourseManagementStudent frame
             frame.dispose();
-            studentDashboard(s);
+
 
         } else {
-            instructorDashboard();
+
         }
 
     } else {
@@ -260,35 +259,28 @@ dashboard.setLocationRelativeTo(null);
         main.add(panel);
         main.setVisible(true);
     }
-}
-
-
-
-
-
-
-  /*  private static void instructorDashboard() {
-        JFrame main = new JFrame("instructorDashboard");
-        main.setSize(500, 400);
-        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        main.setLocationRelativeTo(null);
-        JPanel panel = new JPanel(new GridLayout(7, 1, 10, 15));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        JButton signOutBtn = new JButton("Sign Out");
-        signOutBtn.addActionListener(e -> {
-            main.dispose();
-            showSignInWindow();
-        });
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(new JLabel());
-        panel.add(signOutBtn);
-        main.add(panel);
-        main.setVisible(true);
-    }*/
+//    private static void instructorDashboard() {
+//        JFrame main = new JFrame("instructorDashboard");
+//        main.setSize(500, 400);
+//        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        main.setLocationRelativeTo(null);
+//        JPanel panel = new JPanel(new GridLayout(7, 1, 10, 15));
+//        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+//        JButton signOutBtn = new JButton("Sign Out");
+//        signOutBtn.addActionListener(e -> {
+//            main.dispose();
+//            showSignInWindow();
+//        });
+//        panel.add(new JLabel());
+//        panel.add(new JLabel());
+//        panel.add(new JLabel());
+//        panel.add(new JLabel());
+//        panel.add(new JLabel());
+//        panel.add(new JLabel());
+//        panel.add(signOutBtn);
+//        main.add(panel);
+//        main.setVisible(true);
+//    }
 
     // ===================== VALIDATION =====================
     private static boolean validateLogin(String username, String password) {
@@ -300,9 +292,17 @@ dashboard.setLocationRelativeTo(null);
             }
         }
         return false;   }
- 
+
 
     private static boolean usernameExists(String username) {
         return users.getDb().stream().anyMatch(u -> u.getUserName().equals(username));
     }
 }
+
+
+
+
+
+
+
+

@@ -97,7 +97,15 @@ public class CourseService extends JsonDatabaseManager<Course> {
         }
         return result;
     }
-    
+    public ArrayList<Course> getInstructorCourses(String instructorId) {
+        ArrayList<Course> result = new ArrayList<>();
+        for(Course c : db) {
+            if(c.getInstructorId().equals(instructorId)) {
+                result.add(c);
+            }
+        }
+        return result;
+    }
     public boolean addLesson(String courseId, Lesson lesson) {
         Course course = getCourseById(courseId);
         if(course != null) {

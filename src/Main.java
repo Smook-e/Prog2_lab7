@@ -39,12 +39,15 @@ public class Main {
        StudentService studentService = new StudentService(users, courseService);
 
         List<Course> courses = studentService.browseCourses();
-        courseService.enrollStudent("C002", "10067");
-        courseService.save();
-//        for(Course course : courses) {
-//            System.out.println(course.getCourseId());
-//            System.out.println(course.getTitle());
-//        }
+//        courseService.enrollStudent("C002", "10067");
+//        courseService.save();
+//
+       ArrayList<Course> c =  courseService.getInstructorCourses("10813");
+        for(Course course : c) {
+            System.out.println(course.getCourseId());
+            System.out.println(course.getTitle());
+        }
+
 
     }
 }

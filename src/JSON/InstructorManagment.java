@@ -45,7 +45,7 @@ public class InstructorManagment {
     }
     public boolean deleteCourse(Instructor instructor,String courseId)
     {
-        if(!instructor.getCreatedCourses().contains(courseId))
+        if(!getCoursesByInstructor(instructor.getUserID()).contains(courseService.getCourseById(courseId)))
         {
             return false;
         }
@@ -96,7 +96,10 @@ public class InstructorManagment {
     {
         this.studentService=studentService;
     }
-    
+    public ArrayList<Course> getCoursesByInstructor(String instructorId){
+        return courseService.getCoursesByInstructor(instructorId);
+    }
    }
+
     
 
