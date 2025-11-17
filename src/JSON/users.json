@@ -47,5 +47,19 @@
     "userName": "sara",
     "role": "Instructor",
     "email": "sara@email.com"
+  },
+  {
+    "userID": "10570",
+    "password": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+    "userName": "final",
+    "role": "Instructor",
+    "email": "final@gmail.com"
+  },
+  {
+    "userID": "10631",
+    "password": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+    "userName": "final2",
+    "role": "Student",
+    "email": "email@gmail.com"
   }
 ]

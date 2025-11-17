@@ -133,7 +133,7 @@ public class SignInApp {
                 JOptionPane.showMessageDialog(dialog, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            if (!email.contains("@") || !email.contains(".")) {
+            if (!isValid(email)) {
                 JOptionPane.showMessageDialog(dialog, "Enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -146,6 +146,9 @@ public class SignInApp {
             //create ID
             Random rand = new Random();
             int randomNum = rand.nextInt(1000) +10000;
+            while(users.containsID(Integer.toString(randomNum))){
+                randomNum = rand.nextInt(1000) +10000;
+            }
             String userID = Integer.toString(randomNum);
             String hashedPassword = hashPassword(pass1);
             // === ADD NEW USER ===
@@ -259,28 +262,16 @@ public class SignInApp {
         main.add(panel);
         main.setVisible(true);
     }
-//    private static void instructorDashboard() {
-//        JFrame main = new JFrame("instructorDashboard");
-//        main.setSize(500, 400);
-//        main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        main.setLocationRelativeTo(null);
-//        JPanel panel = new JPanel(new GridLayout(7, 1, 10, 15));
-//        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-//        JButton signOutBtn = new JButton("Sign Out");
-//        signOutBtn.addActionListener(e -> {
-//            main.dispose();
-//            showSignInWindow();
-//        });
-//        panel.add(new JLabel());
-//        panel.add(new JLabel());
-//        panel.add(new JLabel());
-//        panel.add(new JLabel());
-//        panel.add(new JLabel());
-//        panel.add(new JLabel());
-//        panel.add(signOutBtn);
-//        main.add(panel);
-//        main.setVisible(true);
-//    }
+    private static final String EMAIL_REGEX =
+            "^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+\\.[A-Za-z]{2,})$";
+
+    private static final java.util.regex.Pattern pattern =
+            java.util.regex.Pattern.compile(EMAIL_REGEX);
+
+    public static boolean isValid(String email) {
+        if (email == null) return false;
+        return pattern.matcher(email).matches();
+    }
 
     // ===================== VALIDATION =====================
     private static boolean validateLogin(String username, String password) {
