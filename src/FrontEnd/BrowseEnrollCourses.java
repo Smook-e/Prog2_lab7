@@ -192,10 +192,13 @@ public class BrowseEnrollCourses extends javax.swing.JFrame {
 
         for (Course c : courses) {
             System.out.println(c.getCourseId());
-            model.addRow(new Object[]{
-                c.getCourseId(),
-                c.getTitle()
-            });
+            if(c.getStatus().equals("accepted")){
+                model.addRow(new Object[]{
+                        c.getCourseId(),
+                        c.getTitle()
+                });
+            }
+
         }
 
     }//GEN-LAST:event_browseBtn1ActionPerformed

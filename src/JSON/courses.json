@@ -23,7 +23,8 @@
     ],
     "students": [
       "10067"
-    ]
+    ],
+    "status": "accepted"
   },
   {
     "courseId": "9330",
@@ -31,7 +32,8 @@
     "description": "java",
     "instructorId": "10813",
     "lessons": [],
-    "students": []
+    "students": [],
+    "status": "accepted"
   },
   {
     "courseId": "T001",
@@ -39,7 +41,8 @@
     "description": "Testing instructor dashboard",
     "instructorId": "10940",
     "lessons": [],
-    "students": []
+    "students": [],
+    "status": "pending"
   },
   {
     "courseId": "1000",
@@ -47,7 +50,8 @@
     "description": "learn english",
     "instructorId": "10813",
     "lessons": [],
-    "students": []
+    "students": [],
+    "status": "accepted"
   },
   {
     "courseId": "2000",
@@ -55,7 +59,8 @@
     "description": "learn french",
     "instructorId": "10813",
     "lessons": [],
-    "students": []
+    "students": [],
+    "status": "accepted"
   },
   {
     "courseId": "1001",
@@ -77,6 +82,7 @@
     ],
     "students": [
       "10067"
-    ]
+    ],
+    "status": "rejected"
   }
 ]

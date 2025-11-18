@@ -9,6 +9,8 @@ public class Course {
     private String instructorId;
     private ArrayList <Lesson> lessons;
     private ArrayList <String> students;
+    private String status;
+    public Course(){}
 
     public Course(String courseId, String title, String description, String instructorId) {
         this.courseId = courseId;
@@ -17,6 +19,7 @@ public class Course {
         this.instructorId = instructorId;
         this.lessons = new ArrayList<>();
         this.students = new ArrayList<>();
+        this.status = "pending";
     }
 
     public String getCourseId() {
@@ -42,7 +45,12 @@ public class Course {
     public ArrayList<String> getStudents() {
         return students;
     }
-
+    public String getStatus() {
+        return this.status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
     public void setTitle(String title) {
         this.title = title;
     }
@@ -99,4 +107,9 @@ public class Course {
     public int getEnrolledStudentsCount() {
         return students.size();
     }
+    public int getLessonsCount() {
+        return lessons.size();
+    }
+
+
 }
