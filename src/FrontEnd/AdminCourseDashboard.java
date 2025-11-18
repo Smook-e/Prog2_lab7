@@ -120,6 +120,7 @@ public class AdminCourseDashboard extends JFrame {
         });
 
         JButton approveBtn = new JButton("Approve Course");
+        JButton declineBtn = new JButton("Decline Course");
         approveBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
         approveBtn.setForeground(new Color(39, 174, 96));
         approveBtn.setFocusPainted(false);
@@ -131,10 +132,23 @@ public class AdminCourseDashboard extends JFrame {
                 JOptionPane.showMessageDialog(this, "Please select a course to approve.", "No Selection", JOptionPane.WARNING_MESSAGE);
             }
         });
+        declineBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        declineBtn.setForeground(new Color(174, 39, 39));
+        declineBtn.setFocusPainted(false);
+        declineBtn.addActionListener(e -> {
+            int row = courseTable.getSelectedRow();
+            if (row != -1) {
+                declineCourse(row);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a course to approve.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            }
+        });
 
         buttonPanel.add(viewBtn);
         buttonPanel.add(Box.createHorizontalStrut(10));
         buttonPanel.add(approveBtn);
+        buttonPanel.add(declineBtn);
+
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
@@ -254,13 +268,43 @@ public class AdminCourseDashboard extends JFrame {
             // Update table row
             tableModel.setValueAt(getStatusWithColor("accepted"), rowIndex, 3);
             tableModel.setValueAt(course.getEnrolledStudentsCount(), rowIndex, 4);
-            tableModel.setValueAt(course.getLessons(), rowIndex, 5);
+            tableModel.setValueAt(course.getLessonsCount(), rowIndex, 5);
 
             JOptionPane.showMessageDialog(this,
                     "Course approved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // TODO: Here you would call your backend API
-            // approveCourseOnServer(course.courseId);
+
+        }
+    }
+    private void declineCourse(int rowIndex) {
+        Course course = courses.get(rowIndex);
+
+        if (!"pending".equalsIgnoreCase(course.getStatus())) {
+            JOptionPane.showMessageDialog(this,
+                    "Only courses with 'Pending' status can be declined.",
+                    "Cannot decline", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Decline course: \"" + course.getTitle() + "\"?",
+                "Confirm Approval",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Update in-memory object
+            course.setStatus("rejected");
+            courseService.save();
+
+            // Update table row
+            tableModel.setValueAt(getStatusWithColor("rejected"), rowIndex, 3);
+            tableModel.setValueAt(course.getEnrolledStudentsCount(), rowIndex, 4);
+            tableModel.setValueAt(course.getLessonsCount(), rowIndex, 5);
+
+            JOptionPane.showMessageDialog(this,
+                    "Course approved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+
         }
     }
 
