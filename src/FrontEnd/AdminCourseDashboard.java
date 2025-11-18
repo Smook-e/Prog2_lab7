@@ -104,7 +104,10 @@ public class AdminCourseDashboard extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         // Button panel
+        // Button panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         JButton viewBtn = new JButton("View Details");
         viewBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
         viewBtn.addActionListener(e -> {
@@ -112,11 +115,26 @@ public class AdminCourseDashboard extends JFrame {
             if (row != -1) {
                 showCourseDetails(courses.get(row));
             } else {
-                JOptionPane.showMessageDialog(this, "Please select a course first.", "No Selection", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please select a course.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+        JButton approveBtn = new JButton("Approve Course");
+        approveBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        approveBtn.setForeground(new Color(39, 174, 96));
+        approveBtn.setFocusPainted(false);
+        approveBtn.addActionListener(e -> {
+            int row = courseTable.getSelectedRow();
+            if (row != -1) {
+                approveCourse(row);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a course to approve.", "No Selection", JOptionPane.WARNING_MESSAGE);
             }
         });
 
         buttonPanel.add(viewBtn);
+        buttonPanel.add(Box.createHorizontalStrut(10));
+        buttonPanel.add(approveBtn);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
@@ -212,6 +230,38 @@ public class AdminCourseDashboard extends JFrame {
         label.setBackground(bg);
         label.setPreferredSize(new Dimension(120, 35));
         return label;
+    }
+    private void approveCourse(int rowIndex) {
+        Course course = courses.get(rowIndex);
+
+        if (!"pending".equalsIgnoreCase(course.getStatus())) {
+            JOptionPane.showMessageDialog(this,
+                    "Only courses with 'Pending' status can be approved.",
+                    "Cannot Approve", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Approve course: \"" + course.getTitle() + "\"?",
+                "Confirm Approval",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Update in-memory object
+            course.setStatus("accepted");
+            courseService.save();
+
+            // Update table row
+            tableModel.setValueAt(getStatusWithColor("accepted"), rowIndex, 3);
+            tableModel.setValueAt(course.getEnrolledStudentsCount(), rowIndex, 4);
+            tableModel.setValueAt(course.getLessons(), rowIndex, 5);
+
+            JOptionPane.showMessageDialog(this,
+                    "Course approved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+            // TODO: Here you would call your backend API
+            // approveCourseOnServer(course.courseId);
+        }
     }
 
     public static void main(String[] args) {
