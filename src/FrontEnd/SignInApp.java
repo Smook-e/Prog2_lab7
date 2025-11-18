@@ -31,9 +31,18 @@ public class SignInApp {
             users = new UserService("src\\JSON\\users.json");
             courseService = new CourseService("src\\JSON\\courses.json");
             studentService = new StudentService(users, courseService);
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (IOException e) {
             System.out.println("Error loading users!");
 
+        } catch (UnsupportedLookAndFeelException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -68,9 +77,31 @@ public class SignInApp {
         passField.addActionListener(e -> {
             String username = userField.getText().trim();
             String password = new String(passField.getPassword());
-            handleSignIn(username, password, frame);
+            try {
+                handleSignIn(username, password, frame);
+            } catch (UnsupportedLookAndFeelException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            } catch (InstantiationException ex) {
+                throw new RuntimeException(ex);
+            } catch (IllegalAccessException ex) {
+                throw new RuntimeException(ex);
+            }
         });
-        signInBtn.addActionListener(e -> handleSignIn(userField.getText().trim(), new String(passField.getPassword()), frame));
+        signInBtn.addActionListener(e -> {
+            try {
+                handleSignIn(userField.getText().trim(), new String(passField.getPassword()), frame);
+            } catch (UnsupportedLookAndFeelException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            } catch (InstantiationException ex) {
+                throw new RuntimeException(ex);
+            } catch (IllegalAccessException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         registerBtn.addActionListener(e -> showRegisterWindow(frame));
 
         frame.add(panel);
@@ -171,7 +202,7 @@ public class SignInApp {
     }
 
     // ===================== SIGN IN LOGIC =====================
-   private static void handleSignIn(String username, String password, JFrame frame) {
+   private static void handleSignIn(String username, String password, JFrame frame) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
     if (username.isEmpty() || password.isEmpty()) {
         JOptionPane.showMessageDialog(frame, "Please fill all fields!", "Error", JOptionPane.ERROR_MESSAGE);
         return;
@@ -220,6 +251,10 @@ public class SignInApp {
 
         } else {
 
+                AdminCourseDashboard a = new AdminCourseDashboard(courseService);
+                a.setVisible(true);
+                a.setLocationRelativeTo(null);
+                frame.dispose();
         }
 
     } else {
