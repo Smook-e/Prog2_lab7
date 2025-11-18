@@ -126,12 +126,6 @@ public class SignInApp {
 
             // === VALIDATION ===
             if (username.isEmpty() || email.isEmpty() || pass1.isEmpty()) {
-                JOptionPane.showMessageDialog(dialog, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!pass1.equals(pass2)) {
-                JOptionPane.showMessageDialog(dialog, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
             }
             if (!isValid(email)) {
                 JOptionPane.showMessageDialog(dialog, "Enter a valid email!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -250,6 +244,7 @@ public class SignInApp {
         });
         browseButton.addActionListener(e -> {
             BrowseEnrollCourses b =    new BrowseEnrollCourses(s, studentService, courseService);
+
             b.setVisible(true);
             b.setLocationRelativeTo(null);
             main.dispose();
